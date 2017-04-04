@@ -1,4 +1,4 @@
-//计算一年中的第几天
+// 计算一年中的第几天
 #include <stdio.h>
 #include <stdlib.h>
 int main(void)

@@ -1,5 +1,5 @@
-//冒泡排序算法
-//https://zhidao.baidu.com/question/1754076342544723828.html
+// 冒泡排序算法
+// https://zhidao.baidu.com/question/1754076342544723828.html
 #include<stdio.h>
 #include<stdlib.h>
 

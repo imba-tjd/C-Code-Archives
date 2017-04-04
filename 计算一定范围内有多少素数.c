@@ -1,4 +1,4 @@
-//计算一定范围内有多少素数
+// 计算一定范围内有多少素数
 #include <stdio.h>
 #include <stdlib.h>
 int main(void)

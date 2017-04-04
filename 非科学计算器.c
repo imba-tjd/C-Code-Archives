@@ -1,4 +1,4 @@
-//非科学计算器
+// 非科学计算器
 #include <stdio.h>
 #include <stdlib.h>
 int main(void)
