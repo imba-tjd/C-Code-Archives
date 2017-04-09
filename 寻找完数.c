@@ -5,15 +5,16 @@
 // 要求：输入一个整数m，输出区间[1,m]内最大的完数。
 // 例如：输入32，输出28。
 #include <stdio.h>
-int main(int argc, char *argv[])
+#include <stdlib.h>
+int main(void)
 {
     int calc(int num);
     int m, out;
     scanf("%d", &m);
-    for(int i = m; i>=1; i--)
+    for(int i=m;i >= 1;i--)
     {
         if(calc(i)){
-            out = i;
+            out=i;
             break;
         }
     }
@@ -23,8 +24,8 @@ int main(int argc, char *argv[])
 
 int calc(int num)
 {
-    int sum = 0;
-    for(int i = 1;i<num;i++)
+    int sum=0;
+    for(int i=1;i < num;i++)
         if(num%i == 0)
             sum += i;
     if(sum == num)
