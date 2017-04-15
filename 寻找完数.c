@@ -8,27 +8,29 @@
 #include <stdlib.h>
 int main(void)
 {
-    int calc(int num);
-    int m, out;
+    int Maxperfect(int m);
+    int m;
     scanf("%d", &m);
-    for(int i=m;i >= 1;i--)
-    {
-        if(calc(i)){
-            out=i;
-            break;
-        }
-    }
-    printf("%d", out);
+    printf("%d", MaxPerfect(m));
     return 0;
 }
 
-int calc(int num)
+int MaxPerfect(int m)
+{
+    int Calc(int num);
+    for (int i=m; i > 0; i--)
+        if (Calc(i))
+            return i;
+    return 0;
+}
+
+int Calc(int num)
 {
     int sum=0;
-    for(int i=1;i < num;i++)
-        if(num%i == 0)
+    for (int i=1; i < num; i++)
+        if (num%i == 0)
             sum += i;
-    if(sum == num)
+    if (sum == num)
         return 1;
     else
         return 0;
