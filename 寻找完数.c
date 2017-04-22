@@ -6,6 +6,7 @@
 // 例如：输入32，输出28。
 #include <stdio.h>
 #include <stdlib.h>
+
 int main(void)
 {
     int Maxperfect(int m);

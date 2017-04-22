@@ -1,5 +1,6 @@
 //穷举法求最大公约数和最小公倍数
 #include <stdio.h>
+
 int max(int a, int b)
 {
     return a > b ?a:b;
