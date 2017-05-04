@@ -18,7 +18,7 @@ int main(void)
                 flag=1;
             }
         }
-        printf("%d\n",flag*multi);
+        printf("%d\n", flag*multi);
 
     }
     return 0;
