@@ -73,7 +73,7 @@ int GetWeek(Date date)
 
 char *GetCNWeek(Date date)
 {
-    return CNWeeks[GetWeek(date)];
+    return (char *)CNWeeks[GetWeek(date)];
 }
 
 int main(void)
