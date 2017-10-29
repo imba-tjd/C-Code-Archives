@@ -16,13 +16,13 @@ typedef struct
 static const int daysPerMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 static const char *CNWeeks[] = {"天", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"};
 
-Date SetDate(int year,int month,int day);
+Date SetDate(int year, int month, int day);
 Date GetToday(void);
 bool IsLeapYear(int year);
 int GetWeek(Date date);
 char *GetCNWeek(Date date);
 
-Date SetDate(int year,int month,int day)
+Date SetDate(int year, int month, int day)
 {
     Date date;
     date.year = year;
@@ -81,8 +81,8 @@ int main(void)
     Date Today = GetToday();
     printf("今天的日期是： %d 年 %d 月 %d 日，星期%s。\n", Today.year, Today.month, Today.day, GetCNWeek(Today));
 
-    Date date = SetDate(1901,2,1);
-    printf("%s",GetCNWeek(date));
+    Date date = SetDate(1901, 2, 1);
+    printf("%s", GetCNWeek(date));
 
     getchar();
     return 0;

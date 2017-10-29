@@ -12,31 +12,31 @@
 -11
 */
 
-#include<stdio.h>
+#include <stdio.h>
 
 static int R;
 int main()
 {
-    void convert (int a);
+    void convert(int a);
     int N;
-    scanf ("%d %d", &N, &R);
-    if(N<0)
+    scanf("%d %d", &N, &R);
+    if (N < 0)
         putchar('-');
-    convert (N>=0?N:-N);
+    convert(N >= 0 ? N : -N);
     printf("\n");
     return 0;
 }
 
-void convert (int a)
+void convert(int a)
 {
     char ch;
     if (a >= R)
-        convert (a/R);// 先递归后输出，达到倒序的目的
+        convert(a / R); // 先递归后输出，达到倒序的目的
 
-    if((ch=a%R) < 10)
+    if ((ch = a % R) < 10)
         ch += '0';
     else
-        ch += 'A' - 10;// 10才对应A
+        ch += 'A' - 10; // 10才对应A
     putchar(ch);
     return;
 }

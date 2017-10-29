@@ -7,19 +7,19 @@
 int main()
 {
     int i;
-    int n,count=0,num;
-    scanf("%d",&n);
-    for(i =0;i<n;i++)
+    int n, count = 0, num;
+    scanf("%d", &n);
+    for (i = 0; i < n; i++)
     {
-        scanf("%d",&num);
-        if(isUgly(num))
+        scanf("%d", &num);
+        if (isUgly(num))
             count++;
     }
-    printf("%d",count);
+    printf("%d", count);
     return 0;
 }
 
-int isUgly (int num)
+int isUgly(int num)
 {
     if (num <= 0)
         return 0;

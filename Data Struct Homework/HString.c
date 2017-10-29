@@ -9,10 +9,10 @@ typedef struct
     int length;
 } HString;
 
-HString CreateHString(char *string);
+HString CreateHString(char *const string);
 HString HConcat(HString hs1, HString hs2);
 
-HString CreateHString(char *string)
+HString CreateHString(char *const string)
 {
     HString hs;
     hs.length = strlen(string);

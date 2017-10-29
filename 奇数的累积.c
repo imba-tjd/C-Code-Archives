@@ -5,21 +5,20 @@ int main(void)
 {
     int n, multi, k, flag;
 
-    while(scanf("%d", &n) != EOF)
+    while (scanf("%d", &n) != EOF)
     {
-        flag=0;
-        multi=1;
-        for(int i=0;i < n;i++)
+        flag = 0;
+        multi = 1;
+        for (int i = 0; i < n; i++)
         {
             scanf("%d", &k);
-            if(k%2 != 0)
+            if (k % 2 != 0)
             {
                 multi *= k;
-                flag=1;
+                flag = 1;
             }
         }
-        printf("%d\n", flag*multi);
-
+        printf("%d\n", flag * multi);
     }
     return 0;
 }

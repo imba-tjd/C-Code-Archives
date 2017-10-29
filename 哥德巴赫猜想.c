@@ -5,20 +5,20 @@
 int IsPrime(int n)
 {
     int i;
-    if(n <= 2)
+    if (n <= 2)
         return 0;
-    for(i=2;i*i <= n;i++)
-        if(n%i == 0)
+    for (i = 2; i * i <= n; i++)
+        if (n % i == 0)
             return 0;
     return 1;
 }
 
-void goldbach (int n)
+void goldbach(int n)
 {
     int i;
-    for(i=2;i <= n/2;i++)
-            if(IsPrime(i)&&IsPrime(n-i))
-                printf("%d=%d+%d\n", n, i, n-i);
+    for (i = 2; i <= n / 2; i++)
+        if (IsPrime(i) && IsPrime(n - i))
+            printf("%d=%d+%d\n", n, i, n - i);
     return;
 }
 

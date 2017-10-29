@@ -20,7 +20,7 @@ int main(void)
 int MaxPerfect(int m)
 {
     int Calc(int num);
-    for (int i=m; i > 0; i--)
+    for (int i = m; i > 0; i--)
         if (Calc(i))
             return i;
     return 0;
@@ -28,9 +28,9 @@ int MaxPerfect(int m)
 
 int Calc(int num)
 {
-    int sum=0;
-    for (int i=1; i < num; i++)
-        if (num%i == 0)
+    int sum = 0;
+    for (int i = 1; i < num; i++)
+        if (num % i == 0)
             sum += i;
     if (sum == num)
         return 1;

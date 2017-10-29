@@ -13,7 +13,7 @@ typedef struct Matrix
 {
     int rows, cols, nums; // 矩阵的行数、列数和元素数
     Node nodes[MAXSIZE];
-} *Matrix;
+} * Matrix;
 
 Node CreateNode(int row, int col, int data);
 Matrix CreateMatrix(int rows, int cols);
