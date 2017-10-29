@@ -1,4 +1,4 @@
-// 用链式存储构建一个二叉树，使用非递归中序遍历的方法输出这个树
+// 用链式存储构建一个二叉树
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,7 +17,7 @@ BiTree CreateBiTree(char *const string)
     return CreateBitNode(&chs);
 }
 
-BiTNode *CreateBitNode(char **ch)
+BiTNode *CreateBitNode(char **ch) // 递归前序建立树
 {
     BiTNode *bn = (BiTNode *)malloc(sizeof(BiTNode));
     bn->data = **ch;
@@ -31,7 +31,7 @@ BiTNode *CreateBitNode(char **ch)
     return bn;
 }
 
-void ShowBiTree(BiTree bt)
+void ShowBiTree(BiTree bt) // 使用非递归中序遍历的方法输出这个树
 {
     BiTNode *stack[20];
     int top = -1;
@@ -48,9 +48,10 @@ void ShowBiTree(BiTree bt)
         p = stack[top--];
         printf("%c", p->data);
         p = p->rchild;
-    } while (top > -1);
+    } while (top > -1 || p->data != '#'); // 如果没有后一项判断，则根的右子树无法输出
 
-    /*
+
+    /* 最初的想法，会出现来回走的情况。因为不是栈帧，不能记录已经左走过了
     do
     {
         if (p->lchild->data != '#')
@@ -76,7 +77,7 @@ void ShowBiTree(BiTree bt)
 
 int main(void)
 {
-    BiTree bt = CreateBiTree("ABC##DE#G##F###");
+    BiTree bt = CreateBiTree("ABC##DE#G##F##H##");
     ShowBiTree(bt);
     return 0;
 }
