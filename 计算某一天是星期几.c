@@ -14,7 +14,7 @@ typedef struct
 } Date;
 
 static const int daysPerMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-static const char *CNWeeks[] = {"天", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"};
+static const char *CNWeeks[] = {"天", "一", "二", "三", "四", "五", "六"};
 
 Date SetDate(int year, int month, int day);
 Date GetToday(void);
