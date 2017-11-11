@@ -2,6 +2,7 @@
 // 以1900年1月1日星期一为基准
 // 获取当前的时间代码来源：https://zhidao.baidu.com/question/17712149.html
 
+#include <locale.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <time.h>
@@ -14,13 +15,13 @@ typedef struct
 } Date;
 
 static const int daysPerMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-static const char *CNWeeks[] = {"天", "一", "二", "三", "四", "五", "六"};
+static const wchar_t *CNWeeks[] = {L"天", L"一", L"二", L"三", L"四", L"五", L"六"};
 
 Date SetDate(int year, int month, int day);
 Date GetToday(void);
 bool IsLeapYear(int year);
 int GetWeek(Date date);
-char *GetCNWeek(Date date);
+wchar_t *GetCNWeek(Date date);
 
 Date SetDate(int year, int month, int day)
 {
@@ -49,7 +50,7 @@ Date GetToday(void)
 
 bool IsLeapYear(int year)
 {
-    return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 }
 
 int GetWeek(Date date)
@@ -71,18 +72,18 @@ int GetWeek(Date date)
     return baseWeek;
 }
 
-char *GetCNWeek(Date date)
+wchar_t *GetCNWeek(Date date)
 {
-    return (char *)CNWeeks[GetWeek(date)];
+    return (wchar_t *)CNWeeks[GetWeek(date)];
 }
 
 int main(void)
 {
     Date Today = GetToday();
-    printf("今天的日期是： %d 年 %d 月 %d 日，星期%s。\n", Today.year, Today.month, Today.day, GetCNWeek(Today));
+    wprintf(L"今天的日期是： %d 年 %d 月 %d 日，星期%s。\n", Today.year, Today.month, Today.day, GetCNWeek(Today));
 
     Date date = SetDate(1901, 2, 1);
-    printf("%s", GetCNWeek(date));
+    wprintf(L"%s", GetCNWeek(date));
 
     getchar();
     return 0;
