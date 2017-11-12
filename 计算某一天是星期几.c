@@ -79,6 +79,7 @@ wchar_t *GetCNWeek(Date date)
 
 int main(void)
 {
+    setlocale(LC_ALL, "chs");
     Date Today = GetToday();
     wprintf(L"今天的日期是： %d 年 %d 月 %d 日，星期%s。\n", Today.year, Today.month, Today.day, GetCNWeek(Today));
 
