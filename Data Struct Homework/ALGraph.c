@@ -32,7 +32,7 @@ VNode *CreateAdjList(int vexnum);                       // 创建顶点数组
 VNode CreateVNode(VerTexType data);                     // 创建顶点
 ArcNode CreateArcNode(VNode node, OtherInfo info);      // 创建边
 void CreateArcs(ALGraph graph);                         // 交互式获取边的信息并完成边的创建和链接
-bool ArcExist(const ALGraph graph, int head, int rear); // 判断边是否存在
+bool ArcExist(const ALGraph graph, int rear, int head); // 判断边是否存，起始的顶点叫尾，指向的顶点叫头
 int LocaleVex(ALGraph graph, VerTexType value);         // 根据值获取顶点索引
 VNode GetVNode(ALGraph graph, int index);               // 根据索引获取顶点
 void LinkArc(VNode vn, ArcNode an);                     // 把边插入图中
@@ -83,16 +83,16 @@ void CreateArcs(ALGraph graph)
 {
     for (int i = 0; i < graph->arcnum; i++)
     {
-        int head, rear;
+        int rear, head;
         OtherInfo info;
 
         wprintf(L"第%d条边：\n", i + 1);
         wprintf(L"第一个邻接点：");
-        head = LocaleVex(graph, GetVerticeData());
-        wprintf(L"第二个邻接点：");
         rear = LocaleVex(graph, GetVerticeData());
+        wprintf(L"第二个邻接点：");
+        head = LocaleVex(graph, GetVerticeData());
 
-        if (ArcExist(graph, head, rear))
+        if (ArcExist(graph, rear, head))
         {
             wprintf(L"这条边已经存在！\n：");
             i--;
@@ -102,8 +102,8 @@ void CreateArcs(ALGraph graph)
         wprintf(L"边的长度：");
         info = GetArcInfo();
 
-        LinkArc(GetVNode(graph, head), CreateArcNode(GetVNode(graph, rear), info));
         LinkArc(GetVNode(graph, rear), CreateArcNode(GetVNode(graph, head), info));
+        LinkArc(GetVNode(graph, head), CreateArcNode(GetVNode(graph, rear), info));
         printf("\n");
     }
 }
@@ -141,12 +141,12 @@ ArcNode CreateArcNode(VNode adjvex, OtherInfo info)
     return an;
 }
 
-bool ArcExist(const ALGraph graph, int head, int rear)
+bool ArcExist(const ALGraph graph, int rear, int head)
 {
-    VNode vn = GetVNode(graph, head);
+    VNode vn = GetVNode(graph, rear);
 
     for (ArcNode an = vn->firstarc; an != NULL; an = an->nextarc)
-        if (LocaleVex(graph, an->adjvex->data) == rear)
+        if (LocaleVex(graph, an->adjvex->data) == head)
             return true;
 
     return false;
