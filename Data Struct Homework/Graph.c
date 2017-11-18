@@ -21,23 +21,23 @@ typedef struct VNode // 顶点
     struct ArcNode *firstarc; // 指向第一条依附该顶点的边的指针
 } * VNode;                    // 邻接表
 
-typedef struct ALGraph
+typedef struct Graph
 {
     VNode *vertices;    //顶点数组
     int vexnum, arcnum; // 顶点数和边数
-} * ALGraph;
+} * Graph;
 
-ALGraph CreateALGraph(void);                            // 创建无向图
-VNode *CreateAdjList(int vexnum);                       // 创建顶点数组
+Graph CreateGraph(void);                            // 创建无向图
+VNode *CreateNodeList(int vexnum);                       // 创建顶点数组
 VNode CreateVNode(VerTexType data);                     // 创建顶点
 ArcNode CreateArcNode(VNode node, OtherInfo info);      // 创建边
-void CreateArcs(ALGraph graph);                         // 交互式获取边的信息并完成边的创建和链接
-bool ArcExist(const ALGraph graph, int rear, int head); // 判断边是否存，起始的顶点叫尾，指向的顶点叫头
-int LocaleVex(ALGraph graph, VerTexType value);         // 根据值获取顶点索引
-VNode GetVNode(ALGraph graph, int index);               // 根据索引获取顶点
+void CreateArcs(Graph graph);                         // 交互式获取边的信息并完成边的创建和链接
+bool ArcExist(const Graph graph, int rear, int head); // 判断边是否存，起始的顶点叫尾，指向的顶点叫头
+int LocaleVex(Graph graph, VerTexType value);         // 根据值获取顶点索引
+VNode GetVNode(Graph graph, int index);               // 根据索引获取顶点
 void LinkArc(VNode vn, ArcNode an);                     // 把边插入图中
-void DFSPrint(ALGraph graph, int index);                // 深度优先遍历输出
-void PrintALGraph(ALGraph graph);                       // 普通遍历，非深度优先也非广度优先遍历
+void DFSPrint(Graph graph, int index);                // 深度优先遍历输出
+void PrintGraph(Graph graph);                       // 普通遍历，非深度优先也非广度优先遍历
 void ClearInput(void);                                  // 清除多余的输入
 
 // 接口函数
@@ -46,9 +46,9 @@ OtherInfo GetArcInfo(void);           // 获取边的长度
 wchar_t *VerTexToString(VNode vn);    // 把顶点名称转换为宽字符串
 wchar_t *ArcInfoToString(ArcNode an); // 把边的长度转换为宽字符串
 
-ALGraph CreateALGraph(void)
+Graph CreateGraph(void)
 {
-    ALGraph graph = calloc(1, sizeof(struct ALGraph));
+    Graph graph = calloc(1, sizeof(struct Graph));
 
     wprintf(L"请输入顶点数：");
     scanf("%d", &graph->vexnum);
@@ -57,7 +57,7 @@ ALGraph CreateALGraph(void)
 
     printf("\n");
     wprintf(L"输入顶点储存的数据\n");
-    graph->vertices = CreateAdjList(graph->vexnum);
+    graph->vertices = CreateNodeList(graph->vexnum);
 
     printf("\n");
     wprintf(L"输入无向边的邻接点\n");
@@ -66,20 +66,20 @@ ALGraph CreateALGraph(void)
     return graph;
 }
 
-VNode *CreateAdjList(int vexnum)
+VNode *CreateNodeList(int vexnum)
 {
-    VNode *al = calloc(vexnum, sizeof(VNode));
+    VNode *nl = calloc(vexnum, sizeof(VNode));
 
     for (int i = 0; i < vexnum; i++)
     {
         wprintf(L"第%d个顶点：", i + 1);
-        al[i] = CreateVNode(GetVerticeData());
+        nl[i] = CreateVNode(GetVerticeData());
     }
 
-    return al;
+    return nl;
 }
 
-void CreateArcs(ALGraph graph)
+void CreateArcs(Graph graph)
 {
     for (int i = 0; i < graph->arcnum; i++)
     {
@@ -141,7 +141,7 @@ ArcNode CreateArcNode(VNode adjvex, OtherInfo info)
     return an;
 }
 
-bool ArcExist(const ALGraph graph, int rear, int head)
+bool ArcExist(const Graph graph, int rear, int head)
 {
     VNode vn = GetVNode(graph, rear);
 
@@ -152,7 +152,7 @@ bool ArcExist(const ALGraph graph, int rear, int head)
     return false;
 }
 
-int LocaleVex(ALGraph graph, VerTexType value)
+int LocaleVex(Graph graph, VerTexType value)
 {
     for (int i = 0; i < graph->vexnum; i++)
         if (graph->vertices[i]->data == value)
@@ -161,7 +161,7 @@ int LocaleVex(ALGraph graph, VerTexType value)
     return -1;
 }
 
-VNode GetVNode(ALGraph graph, int index)
+VNode GetVNode(Graph graph, int index)
 {
     if (graph == NULL)
         return NULL;
@@ -169,7 +169,7 @@ VNode GetVNode(ALGraph graph, int index)
         return graph->vertices[index];
 }
 
-void DFSPrint(ALGraph graph, int index) // 从index的节点开始遍历
+void DFSPrint(Graph graph, int index) // 从index的节点开始遍历
 {
     // static bool visited[graph->vexnum];
 
@@ -228,9 +228,9 @@ void DFSPrint(ALGraph graph, int index) // 从index的节点开始遍历
     }
 }
 
-void PrintALGraph(ALGraph graph)
+void PrintGraph(Graph graph)
 {
-    VNode *al = graph->vertices;
+    VNode *nl = graph->vertices;
     bool *visited = calloc(graph->vexnum, sizeof(bool));
     bool needNewLine;
 
@@ -238,20 +238,20 @@ void PrintALGraph(ALGraph graph)
     for (int i = 0; i < graph->vexnum; i++)
     {
         needNewLine = false;
-        if (al[i]->firstarc == NULL && visited[i] == false)
+        if (nl[i]->firstarc == NULL && visited[i] == false)
         {
-            wprintf(L"%s", VerTexToString(al[i]));
+            wprintf(L"%s", VerTexToString(nl[i]));
             needNewLine = true;
         }
 
         visited[i] = true;
 
-        for (ArcNode an = al[i]->firstarc; an != NULL; an = an->nextarc)
+        for (ArcNode an = nl[i]->firstarc; an != NULL; an = an->nextarc)
         {
             int location = LocaleVex(graph, an->adjvex->data);
             if (!visited[location])
             {
-                wprintf(L"%s-[%s]-%s  ", VerTexToString(al[i]), ArcInfoToString(an), VerTexToString(an->adjvex));
+                wprintf(L"%s-[%s]-%s  ", VerTexToString(nl[i]), ArcInfoToString(an), VerTexToString(an->adjvex));
                 needNewLine = true;
                 visited[location] = true;
             }
@@ -260,11 +260,6 @@ void PrintALGraph(ALGraph graph)
         if (needNewLine)
             printf("\n");
     }
-}
-
-bool DFSArcExist(ALGraph graph,VerTexType data1, VerTexType data2)
-{
-
 }
 
 // 实现接口函数
@@ -323,10 +318,10 @@ int main(void)
 {
     setlocale(LC_ALL, "chs");
 
-    ALGraph graph = CreateALGraph();
+    Graph graph = CreateGraph();
     // DFSPrint(graph, 0);
     // printf("\n");
-    PrintALGraph(graph);
+    PrintGraph(graph);
 
     system("pause");
     return 0;
