@@ -55,7 +55,6 @@ bool IsLeapYear(int year)
 
 int GetWeek(Date date)
 {
-    int baseWeek = 1;
     int days = 0;
     for (int i = 1900; i < date.year; i++)
         days += IsLeapYear(i) ? 366 : 365;
@@ -65,11 +64,14 @@ int GetWeek(Date date)
     if (date.month > 2 && IsLeapYear(date.year))
         days += 1;
 
-    days %= 7;
-    baseWeek += days;
-    if (baseWeek > 7)
-        baseWeek -= 7;
-    return baseWeek;
+    return (days + 1) % 7;
+
+    // int baseWeek = 1;
+    // days %= 7;
+    // baseWeek += days;
+    // if (baseWeek >= 7)
+    //     baseWeek -= 7;
+    // return baseWeek;
 }
 
 wchar_t *GetCNWeek(Date date)
