@@ -1,5 +1,5 @@
 # C-Code-Repository
 
-存档一些也许有用的C语言代码
+我的C语言代码仓库。
 
-By:Imba-Tjd
+Mainly By: Imba-Tjd
