@@ -1,45 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define M 100 //栈的空间
-typedef struct
+typedef int DataType;
+
+typedef struct Stack
 {
-    int data[M];
+    DataType *data;
     int top;
-} SqStack;
+} * Stack;
 
-SqStack *InitStack(void);
-int Push(SqStack *const stack, int value);
-int Pop(SqStack *const stack);
+Stack CreateStack(int capacity);
+void Push(Stack stack, DataType data);
+DataType Pop(Stack stack);
 
-// 返回栈指针
-SqStack *InitStack(void)
+Stack CreateStack(int capacity)
 {
-    SqStack *stack = (SqStack *)malloc(sizeof(SqStack));
+    Stack stack = calloc(1, sizeof(struct Stack));
+    stack->data = calloc(capacity, sizeof(DataType));
     stack->top = -1;
+
     return stack;
 }
 
-// 略
-int Push(SqStack *const stack, int value)
+void Push(Stack stack, DataType data)
 {
-    if (stack->top == M - 1)
-        return 1;
-    stack->data[++stack->top] = value;
-    return 0;
+    if (stack->top == sizeof(stack->data))
+        exit(0xffff);
+
+    stack->data[++stack->top] = data;
 }
 
-// 略
-int Pop(SqStack *const stack)
+DataType Pop(Stack stack)
 {
     if (stack->top == -1)
-        exit(0xff);
+        exit(0xffff);
+
     return stack->data[stack->top--];
 }
 
 int main(void)
 {
-    SqStack *stack = InitStack();
+    Stack stack = CreateStack(10);
     Push(stack, 1);
     Push(stack, 2);
     Push(stack, 4);
