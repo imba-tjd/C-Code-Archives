@@ -5,8 +5,8 @@ typedef int DataType;
 
 typedef struct Stack
 {
-    DataType *data;
     int top;
+    DataType *data;
 } * Stack;
 
 Stack CreateStack(int capacity);
@@ -16,6 +16,9 @@ DataType Pop(Stack stack);
 Stack CreateStack(int capacity)
 {
     Stack stack = calloc(1, sizeof(struct Stack));
+    if (stack == NULL)
+        exit(0xffff);
+
     stack->data = calloc(capacity, sizeof(DataType));
     stack->top = -1;
 
@@ -51,6 +54,6 @@ int main(void)
     while (stack->top != -1)
         printf("%d\n", Pop(stack));
 
-    getchar();
+    // getchar();
     return 0;
 }
