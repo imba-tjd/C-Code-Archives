@@ -1,46 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define M 100 //队列长度
-typedef struct
-{
-    int elem[M]; //存储空间基址
-    int rear;    //尾指针，若队列不空，指向队尾元素
-    int front;   //当前队列的长度，即元素个数
-} SqQueue;
+typedef int DataType;
 
-SqQueue *InitQueue(void);
-int EnQueue(SqQueue *const queue, int value);
-int DeQueue(SqQueue *const queue);
-
-// 返回循环队列指针
-SqQueue *InitQueue(void)
+typedef struct Queue
 {
-    SqQueue *queue = (SqQueue *)malloc(sizeof(SqQueue));
-    queue->rear = queue->front = 0;
+    int tail;   // 队列的尾，在数组中处于“前面”
+    int head;   // 队列的头，在数组中处于“后面”
+    int length; // 允许的最大元素数量
+    DataType *elem;
+} * Queue; // 循环队列
+
+Queue CreateQueue(int length);
+void EnQueue(Queue queue, DataType value);
+DataType DeQueue(Queue queue);
+
+Queue CreateQueue(int length)
+{
+    Queue queue = calloc(1, sizeof(struct Queue));
+    if (queue == NULL)
+        exit(0xffff);
+
+    queue->tail = queue->head = 0;
+    queue->length = length;
+    queue->elem = calloc(length + 1, sizeof(DataType)); // 多一个空间空着用于判满，但不必告诉用户
+
     return queue;
 }
 
-// 入队
-int EnQueue(SqQueue *const queue, int value)
+void EnQueue(Queue queue, int value)
 {
-    if ((queue->rear + 1) % M == queue->front)
-        return 1;
-    queue->elem[(queue->rear++) % M] = value; // rear标记的位置为空
-    return 0;
+    if ((queue->tail + 1) % (queue->length + 1) == queue->head) // 因为实际空间比length多1，所以length也要加1。如果tail和length都不加，则空出来的位置无意义，为空时直接等于head了。
+        exit(0xffff);
+
+    queue->elem[queue->tail++] = value; // tail标记的位置为空
+    queue->tail %= queue->length + 1;
 }
 
-// 出队
-int DeQueue(SqQueue *const queue)
+DataType DeQueue(Queue queue)
 {
-    if (queue->front == queue->rear)
-        exit(0xff);
-    return queue->elem[(queue->front++) % M];
+    if (queue->head == queue->tail)
+        exit(0xffff);
+
+    DataType data = queue->elem[queue->head++]; // head标记的位置即为要返回的元素位置
+    queue->head %= queue->length + 1;
+    return data;
 }
 
 int main(void)
 {
-    SqQueue *queue = InitQueue();
+    Queue queue = CreateQueue(6);
     EnQueue(queue, 1);
     EnQueue(queue, 2);
     EnQueue(queue, 4);
@@ -48,9 +57,9 @@ int main(void)
     EnQueue(queue, 0);
     EnQueue(queue, 5);
 
-    while (queue->front != queue->rear)
+    for (int i = 0; i < queue->length; i++)
         printf("%d\n", DeQueue(queue));
 
-    getchar();
+    // getchar();
     return 0;
 }
