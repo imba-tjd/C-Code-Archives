@@ -1,62 +1,93 @@
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct LNode
-{
-    int data;
-    struct LNode *next;
-} LNode;
+typedef int DataType;
 
-LNode *CreateList(void);
-void Insert(LNode *const head, int value);
-
-// 返回头结点指针
-LNode *CreateList(void)
+typedef struct List
 {
-    LNode *head = (LNode *)malloc(sizeof(LNode));
-    head->next = NULL;
-    return head;
+    DataType data;
+    struct List *next;
+} * List, *Node;
+
+List CreateList(void);
+List CreateNode(DataType data);
+bool Insert(List list, DataType data, int (*Compare)(DataType data1, DataType data2));
+
+List CreateList()
+{
+    List list = calloc(1, sizeof(struct List));
+    if (list == NULL)
+        exit(EXIT_FAILURE);
+
+    return list;
 }
 
-// 插入节点
-void Insert(LNode *const head, int value)
+Node CreateNode(DataType data)
 {
-    LNode *p = head;
-    LNode *q = (LNode *)malloc(sizeof(LNode));
+    Node node = calloc(1, sizeof(struct List));
+    if (node == NULL)
+        exit(EXIT_FAILURE);
 
-    q->data = value;
-    q->next = NULL;
+    node->data = data;
 
-    while (p->next != NULL)
+    return node;
+}
+
+bool Insert(List list, DataType data, int (*Compare)(DataType data1, DataType data2))
+{
+    assert(list != NULL && Compare != NULL);
+
+    Node node = CreateNode(data);
+
+    while (list->next != NULL)
     {
-        if (p->next->data >= value) // 从小到大递增
+        int result = Compare(list->next->data, data); // data与list的下一项进行比较
+
+        if (result == 0) // 已经存在
+            return false;
+
+        if (result > 0) // 从小到大递增
         {
-            q->next = p->next;
-            p->next = q;
-            return;
+            node->next = list->next;
+            list->next = node;
+            return true;
         }
-        p = p->next;
+        list = list->next;
     }
-    p->next = q;
+
+    list->next = node; // 插入尾部
+
+    return true;
+}
+
+// 接口函数
+#define INSERT(list, data) Insert(list, data, &Compare)
+
+int Compare(DataType data1, DataType data2)
+{
+    return data1 >= data2 ? data1 > data2 ? 1 : 0 : -1;
 }
 
 int main(void)
 {
-    LNode *const head = CreateList();
-    Insert(head, 1);
-    Insert(head, 2);
-    Insert(head, 4);
-    Insert(head, 3);
-    Insert(head, 0);
-    Insert(head, 5);
+    List list = CreateList();
+    // Insert(list, 1, &Compare);
+    INSERT(list, 1);
+    INSERT(list, 2);
+    INSERT(list, 4);
+    INSERT(list, 3);
+    INSERT(list, 0);
+    INSERT(list, 5);
 
-    LNode *p = head->next;
+    List p = list->next;
     while (p != NULL)
     {
         printf("%d\n", p->data);
         p = p->next;
     }
 
-    getchar();
+    // getchar();
     return 0;
 }
