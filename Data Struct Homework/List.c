@@ -15,7 +15,7 @@ List CreateList(void);
 List CreateNode(DataType data);
 bool Insert(List list, DataType data, int (*Compare)(DataType data1, DataType data2));
 
-List CreateList()
+List CreateList(void)
 {
     List list = calloc(1, sizeof(struct List));
     if (list == NULL)
@@ -81,12 +81,9 @@ int main(void)
     INSERT(list, 0);
     INSERT(list, 5);
 
-    List p = list->next;
-    while (p != NULL)
-    {
+    List p = list;
+    while ((p = p->next) != NULL)
         printf("%d\n", p->data);
-        p = p->next;
-    }
 
     // getchar();
     return 0;
