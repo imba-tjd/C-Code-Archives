@@ -3,18 +3,18 @@
 
 int main(void)
 {
-  int m, n, r, p, gcd, lcm;
-  scanf("%d%d", &m, &n);
-  p = m * n;
-  r = m % n;
-  while (r != 0)
-  {
-    m = n;
-    n = r;
+    int m, n, r, p, gcd, lcm;
+    scanf("%d%d", &m, &n);
+    p = m * n;
     r = m % n;
-  }
-  gcd = n;
-  lcm = p / gcd;
-  printf("gcd=%d, lcm=%d\n", gcd, lcm);
-  return 0;
+    while (r != 0)
+    {
+        m = n;
+        n = r;
+        r = m % n;
+    }
+    gcd = n;
+    lcm = p / gcd;
+    printf("gcd=%d, lcm=%d\n", gcd, lcm);
+    return 0;
 }

@@ -64,7 +64,7 @@ int GetWeek(Date date)
     if (date.month > 2 && IsLeapYear(date.year))
         days += 1;
 
-    return (days + 1) % 7;
+    return (days + 1) % 7; // 加1是因为1900年1月1日是星期一
 
     // int baseWeek = 1;
     // days %= 7;
