@@ -1,3 +1,4 @@
+// 如果使用非对称区间，s[t++]为push,s[--t]为pop（数组栈）
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,7 +18,7 @@ Stack CreateStack(int capacity)
 {
     Stack stack = calloc(1, sizeof(struct Stack));
     if (stack == NULL)
-        exit(0xffff);
+        exit(EXIT_FAILURE);
 
     stack->data = calloc(capacity, sizeof(DataType));
     stack->top = -1;
@@ -28,7 +29,7 @@ Stack CreateStack(int capacity)
 void Push(Stack stack, DataType data)
 {
     if (stack->top == sizeof(stack->data))
-        exit(0xffff);
+        exit(EXIT_FAILURE);
 
     stack->data[++stack->top] = data;
 }
@@ -36,7 +37,7 @@ void Push(Stack stack, DataType data)
 DataType Pop(Stack stack)
 {
     if (stack->top == -1)
-        exit(0xffff);
+        exit(EXIT_FAILURE);
 
     return stack->data[stack->top--];
 }

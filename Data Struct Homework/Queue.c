@@ -19,7 +19,7 @@ Queue CreateQueue(int length)
 {
     Queue queue = calloc(1, sizeof(struct Queue));
     if (queue == NULL)
-        exit(0xffff);
+        exit(EXIT_FAILURE);
 
     queue->tail = queue->head = 0;
     queue->length = length;
@@ -31,7 +31,7 @@ Queue CreateQueue(int length)
 void EnQueue(Queue queue, int value)
 {
     if ((queue->tail + 1) % (queue->length + 1) == queue->head) // 因为实际空间比length多1，所以length也要加1。如果tail和length都不加，则空出来的位置无意义，为空时直接等于head了。
-        exit(0xffff);
+        exit(EXIT_FAILURE);
 
     queue->elem[queue->tail++] = value; // tail标记的位置为空
     queue->tail %= queue->length + 1;
@@ -40,7 +40,7 @@ void EnQueue(Queue queue, int value)
 DataType DeQueue(Queue queue)
 {
     if (queue->head == queue->tail)
-        exit(0xffff);
+        exit(EXIT_FAILURE);
 
     DataType data = queue->elem[queue->head++]; // head标记的位置即为要返回的元素位置
     queue->head %= queue->length + 1;
