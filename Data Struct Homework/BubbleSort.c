@@ -5,9 +5,9 @@
 
 void bubble_sort(int a[], int n)
 {
-    for (int i = 0; i < n - 1;i++)
-        for (int j = i + 1; j < n;j++)
-            if (a[i]>a[j]) // 从小到大排序
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (a[i] > a[j]) // 从小到大排序
                 a[i] ^= a[j] ^= a[i] ^= a[j];
 }
 
@@ -15,7 +15,7 @@ int main(void)
 {
     int array[10] = {4, 28, 19, 8, 22, 14, 27, 25, 7, 11};
     bubble_sort(array, 10);
-    for (int i = 0; i < 10;i++)
+    for (int i = 0; i < 10; i++)
         printf("%d ", array[i]);
     putchar('\n');
     return 0;

@@ -25,7 +25,7 @@ void QuickSort1(void *array, int count, size_t size, int (*Compare)(const void *
     int left = 0, right = count - 1; //  如果left = 1，当count == 2时，无法判断（或需要额外判断）这两项是否须要交换
     while (left != right)            // 不会出现 left > right 的情况
     {
-        // 因为sizeof(void*) == 1，所以不能直接指针+间隔，要用间隔乘以大小再加。
+        // 虽然sizeof(void*) == 8，但void*类型加1以后就只会加一，不会乘以8。所以不能直接指针+间隔，要用间隔乘以大小再加。
         if (Compare(array, array + right * size) * type < 0) // 从小到大排序时，若右边的大于枢轴
         {
             right--;  // 每次只走一步
