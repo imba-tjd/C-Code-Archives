@@ -1,3 +1,4 @@
+// 待看：https://www.zhihu.com/question/39214230
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>

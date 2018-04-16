@@ -26,6 +26,7 @@ typedef enum SortType {
     BigToSmall = -1
 } SortType;
 
+// 还有一种方式，当两者都不为NULL时复制小的，结束的时候必定一个为NULL一个不为NULL。如果p1为NULL就把p2赋给p1，然后附加到数组末尾
 void *MergeSortedArray(void *array1, int count1, void *array2, int count2, size_t size, int (*Compare)(const void *a, const void *b), SortType type)
 {
     assert(array1 != NULL && array2 != NULL && Compare != NULL);

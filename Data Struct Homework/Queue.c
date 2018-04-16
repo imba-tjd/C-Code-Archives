@@ -1,3 +1,4 @@
+// 计算长度：尾-头+maxsize再取模
 #include <stdio.h>
 #include <stdlib.h>
 
