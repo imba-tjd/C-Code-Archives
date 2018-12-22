@@ -1,4 +1,5 @@
 // 用分治法设计一个算法，在数组A中寻找最大元素和最小元素
+
 #include <stdio.h>
 
 void MaxAndMin(const unsigned length, int array[length], int *max, int *min)

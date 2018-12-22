@@ -74,3 +74,17 @@ int main(void)
 
     return 0;
 }
+
+/*  实验数据及结果
+cmc
+snmn
+2cmc
+
+10
+_ s
+_ n
+c _
+m m
+_ n
+c _
+*/
