@@ -4,7 +4,7 @@ hello, world\n
 \u0068\u0065\u006c\u006c\u006f\u002c\u0020\u0077\u006f\u0072\u006c\u0064\u000a
 \u4F60\u597D\t\u4E16\u754C\n
 \uD869\uDEA5\n
-你好
+你好 // 失败
 
 \uqwer\u1234
 \u0068\uqwer
@@ -14,7 +14,7 @@ a\uD800a
 \uD800\u0068
 \uD800\uqwer
 */
-#define WIN32
+
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -52,7 +52,6 @@ void Parse(const char *p)
         switch (ch)
         {
         case '\\': // 需要转义
-
             switch (movenext(ch, p))
             {
             case '\"':
@@ -101,8 +100,8 @@ void Parse(const char *p)
     }
 }
 
-inline static bool IsHighSurrogate(unsigned short surrogate) { return surrogate >= 0xD800 && surrogate <= 0xDBFF; }
-inline static bool IsLowSurrogate(unsigned short surrogate) { return surrogate >= 0xDC00 && surrogate <= 0xDFFF; }
+static inline bool IsHighSurrogate(unsigned short surrogate) { return surrogate >= 0xD800 && surrogate <= 0xDBFF; }
+static inline bool IsLowSurrogate(unsigned short surrogate) { return surrogate >= 0xDC00 && surrogate <= 0xDFFF; }
 int ParseUnicode(const char **pp)
 {
     const char *p = *pp;
@@ -149,7 +148,7 @@ int ParseHex(const char *num) // 解析\uxxxx中的4个16进制字符
     return hex;
 }
 
-inline static unsigned int GetCodePointFromSurrogatePare(const unsigned short high, const unsigned short low)
+static inline unsigned int GetCodePointFromSurrogatePare(const unsigned short high, const unsigned short low)
 {
     return 0x10000 + (high - 0xD800) * 0x400 + (low - 0xDC00);
 }
