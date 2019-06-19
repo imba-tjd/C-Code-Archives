@@ -4,7 +4,7 @@ hello, world\n
 \u0068\u0065\u006c\u006c\u006f\u002c\u0020\u0077\u006f\u0072\u006c\u0064\u000a
 \u4F60\u597D\t\u4E16\u754C\n
 \uD869\uDEA5\n
-你好 // 失败
+你好 // win下失败
 
 \uqwer\u1234
 \u0068\uqwer
@@ -19,8 +19,12 @@ a\uD800a
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define movenext(ch, p) (ch = *p++)
 
+#if defined __clang__ && !(defined WIN32 || defined linux || defined unix)
+#define WIN32
+#endif
+
+#define movenext(ch, p) (ch = *p++)
 void Parse(const char *p);
 int ParseUnicode(const char **pp);
 int ParseHex(const char *num);
@@ -44,6 +48,10 @@ int main(void)
     return 0;
 }
 
+#define HandleEscape(ch, escaped) \
+    case ch:                      \
+        putchar(escaped);         \
+        break
 void Parse(const char *p)
 {
     char ch;
@@ -54,28 +62,15 @@ void Parse(const char *p)
         case '\\': // 需要转义
             switch (movenext(ch, p))
             {
-            case '\"':
-                putchar('\"');
-                break;
-            case '\\':
-                putchar('\\');
-                break;
+            HandleEscape('\"', '\"');
+            HandleEscape('\\', '\\');
+            HandleEscape('b', '\b');
+            HandleEscape('f', '\f');
+            HandleEscape('n', '\n');
+            HandleEscape('r', '\r');
+            HandleEscape('t', '\t');
             // case '/': // 斜杠的转义是可选的
-            case 'b':
-                putchar('\b');
-                break;
-            case 'f':
-                putchar('\f');
-                break;
-            case 'n':
-                putchar('\n');
-                break;
-            case 'r':
-                putchar('\r');
-                break;
-            case 't':
-                putchar('\t');
-                break;
+
             case 'u':
             {
                 int codePoint = ParseUnicode(&p);
