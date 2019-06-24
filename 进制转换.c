@@ -38,5 +38,4 @@ void convert(int a)
     else
         ch += 'A' - 10; // 10才对应A
     putchar(ch);
-    return;
 }
