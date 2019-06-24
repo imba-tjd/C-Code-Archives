@@ -1,6 +1,5 @@
 // 将数组a[0,n-1]划分为根号n个子数组，每个子数组有根号n个元素。
 // 然后递归地对分割后的子数组进行排序，最后将所得到的根号n个排好序的子数组合并排序。
-
 #include <assert.h> // assert
 #include <math.h>   // pow
 #include <stdbool.h>

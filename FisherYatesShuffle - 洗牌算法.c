@@ -1,3 +1,4 @@
+// 洗牌算法
 // https://zhidao.baidu.com/question/1739181270968598267.html
 #include <stdio.h>
 #include <stdlib.h> // srand, rand
@@ -11,7 +12,7 @@ void Swap(int *a, int *b)
     *b = t;
 }
 
-// 产生 [0,upper) 之间的随机一个整数
+// 均匀地产生 [0,upper) 之间的随机一个整数
 static inline int RandUpper(unsigned upper)
 {
     int num;
@@ -27,12 +28,12 @@ void FisherYatesShuffle(size_t n, size_t m, int nums[m])
 {
     srand(time(NULL));
 
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++) // 遍历数组，每一个随机与后面的一个交换
         Swap(nums + i, nums + i + 1 + RandUpper(m - (i + 1)));
 }
 
 // 用于qsort
-int IntCom(const void *a, const void *b)
+int IntCmp(const void *a, const void *b)
 {
     int c = *(const int *)a;
     int d = *(const int *)b;
@@ -46,7 +47,7 @@ void SortIntArr(size_t n, int nums[n])
 }
 
 // [from,to)
-void ProduceRandInt(int from, int to, size_t num, int result[num])
+void GenRandInt(int from, int to, size_t num, int result[num])
 {
     // 初始化temparr，值从from到to
     int length = to - from;
@@ -65,7 +66,7 @@ void ProduceRandInt(int from, int to, size_t num, int result[num])
 int main()
 {
     int arr[Count];
-    ProduceRandInt(1, 36, Count, arr);
+    GenRandInt(1, 36, Count, arr);
 
     for (size_t i = 0; i < Count; i++)
         printf("%d ", arr[i]);
