@@ -3,7 +3,7 @@
 // 改进：如果在某一次排序过程中发现没有要交换的，则说明排序已经完成了。
 #include <stdio.h>
 
-void bubble_sort(int a[], int n)
+void bubble_sort(int a[restrict], int n)
 {
     for (int i = 0; i < n - 1; i++)
         for (int j = i + 1; j < n; j++)

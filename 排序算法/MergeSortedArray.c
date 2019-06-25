@@ -52,17 +52,13 @@ void Swap(int *a, int *b)
     *b = t;
 }
 
-// 用于第一个数不有序，后面的都有序；其实插入排序效率更高，但memmove又没有restrict优势？
-void bubbleOnce(int arr[restrict], int *end)
+// 用于第一个数不有序，后面的都有序；思路来自于插入排序
+void insertOnce(int arr[restrict], int *end)
 {
-    while (arr < end)
-        if (arr[0] > arr[1])
-        {
-            Swap(arr, arr + 1);
-            arr++;
-        }
-        else
-            break;
+    int t = *arr;
+    while (arr < end && *arr < t)
+        (arr[-1] = arr[0]), arr++;
+    arr[-1] = t;
 }
 
 void MergeSortedArrayInPlace(
@@ -75,7 +71,7 @@ void MergeSortedArrayInPlace(
         if (*arr1 > *arr2)             // 所以也不用越界检查
         {
             Swap(arr1++, arr2);
-            bubbleOnce(arr2, end2); // 如果发生了交换，arr2可能不再有序
+            insertOnce(arr2, end2); // 如果发生了交换，arr2可能不再有序
         }
         else
             arr2++;
