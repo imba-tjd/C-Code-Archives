@@ -20,36 +20,44 @@ static void MergeSortInternal(int array[], const int from, const int to)
     int to2 = from + step;                  // 子问题结尾
     while (to2 < to)
     {
-        MergeSortInternal(array, from2, to2);
-        from2 = to2; // 下一个子问题
-        to2 += step;
+        MergeSortInternal(array, from2, to2); // 解决子问题
+        from2 = to2;
+        to2 += step; // 下一个子问题
     }
     MergeSortInternal(array, from2, to); // 最后一个子问题长度可能不足根号n
+
+    void Do(int array[], int from, int to, int step);
+    Do(array, from, to, step); // 合并子问题
+}
+
+void Do(int array[], int from, int to, const int step)
+{
+    const int length = to - from;
 
     int *newArray = malloc((length) * sizeof(int));
     int *p = newArray;
     // char flags[length];
     bool *flags = calloc(length, sizeof(bool)); // 标识是否已经取出
 
-    while (p < newArray + length) // 合并
+    while (p < newArray + length) // 合并，每次循环只赋值一个最小值过去
     {
         int mini = -1; // 最小项的下标
 
-        from2 = from;
-        to2 = from + step;
-        while (to2 < to)
+        int from2 = from;
+        int to2 = from + step;
+        while (to2 < to) // 找出所有子问题中未被取出的最小项
         {
-            for (int i = from2; i < to2; i++)                                       // 遍历子问题
-                if (flags[i - from] == 0 && (mini == -1 || array[i] < array[mini])) // 未被取出时，最小项不存在或小于最小项
+            for (int i = from2; i < to2; i++)                                           // 遍历子问题内部
+                if (flags[i - from] == false && (mini == -1 || array[i] < array[mini])) // 未被取出时，最小项不存在或小于最小项，则赋值过去
                     mini = i;
             from2 = to2;
-            to2 += step;
+            to2 += step; // 下一个子问题
         }
-        for (int i = from2; i < to; i++)
-            if (flags[i - from] == 0 && (mini == -1 || array[i] < array[mini]))
+        for (int i = from2; i < to; i++) // 遍历最后一个长度不足的子问题内部
+            if (flags[i - from] == false && (mini == -1 || array[i] < array[mini]))
                 mini = i;
 
-        flags[mini - from] = 1; // 注意偏移
+        flags[mini - from] = true; // 注意偏移
         *p++ = array[mini];
     }
 
