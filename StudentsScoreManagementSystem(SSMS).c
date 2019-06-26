@@ -11,6 +11,7 @@ Compare：wcscmp无法做到按照姓名字典顺序排序，strcmp可以.
 scanf %s 读到EOF不返回EOF
 每次保存数据库时前进行备份
 链表的耦合性太高（不过懒得改了）
+WCHAR是windows特有的，应该用wchar_t才对
 */
 
 #include <conio.h>  // getch()
