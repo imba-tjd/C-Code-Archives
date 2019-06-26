@@ -1,4 +1,6 @@
 // 不是我写的代码，但当时没记录出处。
+// 如果用double来记录，直接循环乘，只能坚持到21，从22开始就会开始进行舍入；long double能坚持到22，但23位时不精确的部分会发生奇怪的变化
+// 而且百度、Google、bing的结果都是这样算的
 #include <stdio.h>
 #include <stdlib.h>
 
