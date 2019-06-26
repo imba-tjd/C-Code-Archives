@@ -1,4 +1,6 @@
 // 试写出一算法，完成堆排序算法，升序排序。 void heap_sort(int a[], int n)
+// 当一个节点比父节点大或者新出现时，需要从下往上处理（上浮swim）；反之如果变得比子节点更小，需要从上往下处理（下沉sink）；
+// 其中初建堆用下沉可以最多比上浮少一半的处理，也就是本代码的实现；但是对建好的堆添加元素就只能用上浮了
 #include <assert.h>
 #include <stdio.h>
 
@@ -10,7 +12,7 @@ void HeapSort(int array[], int num)
     assert(array != NULL);
 
     // 初建堆
-    for (int i = num / 2; i > 0; i--) // 因为使用数组实现堆，num / 2 以后的都是叶子节点，直接认为排好了
+    for (int i = num / 2; i > 0; i--) // 因为使用数组实现堆，num / 2 以后的都是叶子节点，直接认为排好了；num/2恰好是最后一个有孩子的节点（二叉树的性质）
         HeapAdjust(array, num, i);
 
     // 反复把堆顶元素放到最后
@@ -23,19 +25,19 @@ void HeapSort(int array[], int num)
     }
 }
 
-// array[index * 2]和array[index * 2 + 1]已经是大根堆的情况下，把array[index]调整为大根堆
+// array[index * 2]和array[index * 2 + 1]已经是大根堆的情况下，把array[index]调整为大根堆；即下沉操作
 void HeapAdjust(int array[], int num, int index)
 {
     if (index > num / 2)
         return;
 
     int t = array[index];
-    int i = array[index * 2] >= array[index * 2 + 1] ||
-                    index * 2 + 1 > num // 左孩子在范围内但右孩子不在（或已经排好）
+    int i = array[index * 2] >= array[index * 2 + 1] || // 左右中更大的那个
+                    index * 2 + 1 > num                 // 左孩子在范围内但右孩子不在（或已经堆排序排好）
                 ? index * 2
                 : index * 2 + 1;
 
-    if (t < array[i]) // 如果比左右都大，则直接调整完毕
+    if (t < array[i]) // else比左右都大，则直接调整完毕
     {
         array[index] = array[i];
         array[i] = t;
@@ -48,10 +50,10 @@ int main(void)
 {
     // 不使用array[0]
     int array[] = {0, 76, 32, 71, 52, 65, 69, 2, 27, 30, 67};
-    // int array[] = {0, 32, 52, 65, 69, 2, 27, 30};
 
     HeapSort(array, LENGTH);
 
     for (int i = 1; i <= LENGTH; i++)
-        printf("%d\n", array[i]);
+        printf("%d ", array[i]);
+    putchar('\n');
 }
