@@ -43,7 +43,7 @@ int IntCmp(const void *a, const void *b)
 // 对数组排序
 void SortIntArr(size_t n, int nums[n])
 {
-    qsort(nums, n, sizeof(int), IntCom);
+    qsort(nums, n, sizeof(int), IntCmp);
 }
 
 // [from,to)

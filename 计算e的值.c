@@ -9,7 +9,7 @@ int main(void)
     scanf("%d", &n);
     for (int i = 1; i <= n; i++) // 计算要达到的精度
         e /= 10;
-    printf("%f", cal(e));
+    printf("%f", cal_e(e));
     return 0;
 }
 

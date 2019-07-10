@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    int Maxperfect(int m);
+    int MaxPerfect(int m);
     int m;
     scanf("%d", &m);
     printf("%d", MaxPerfect(m));
