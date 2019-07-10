@@ -48,7 +48,7 @@ int main(void)
 double Round(double num, unsigned digit)
 {
     int resize = 1;
-    for (int i = 0; i < digit; i++)
+    for (unsigned i = 0; i < digit; i++)
         resize *= 10; // 可以用pow替代
 
     // 利用 (int)(1.4+0.5) == 1；(int)(1.5+0.5) == 2

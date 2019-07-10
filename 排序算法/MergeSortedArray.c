@@ -9,7 +9,7 @@ void MergeSortedArray(
     size_t len2, const int arr2[static restrict len2],
     int arrout[static restrict len1 + len2])
 {
-    int i = 0, j = 0;                                      // 用索引处理
+    size_t i = 0, j = 0;                                   // 用索引处理
     while (i < len1 || j < len2)                           // 两个都满了时才出循环，用的不是&&
         if (j == len2 || (i < len1 && arr1[i] <= arr2[j])) // 当另一个满了或自己更小时赋值过去
             *arrout++ = arr1[i++];
@@ -96,13 +96,13 @@ void *MergeSortedArrayNoType(void *arr1, int len1, void *arr2, int len2, size_t 
     // 用的是第一种的||，但用的是指针
     while (arr1 != end1 || arr2 != end2)
     {
-        if (arr2 == end2 || (arr1 < end1 && compare(arr1, arr2) <= 0))
+        if (arr2 == end2 || (arr1 < end1 && compare(arr1, arr2) * type <= 0))
         {
             memcpy(arroutp, arr1, elemsiz);
             arroutp += elemsiz;
             arr1 += elemsiz;
         }
-        else if (arr1 == end1 || (arr2 < end2 && compare(arr1, arr2) > 0))
+        else if (arr1 == end1 || (arr2 < end2 && compare(arr1, arr2) * type > 0))
         {
             memcpy(arroutp, arr2, elemsiz);
             arroutp += elemsiz;
@@ -136,7 +136,7 @@ void bubbleSort(int a[], int n)
 
 void PrintArr(size_t len, int arr[static restrict len])
 {
-    for (int i = 0; i < len; i++)
+    for (size_t i = 0; i < len; i++)
         printf("%d ", arr[i]);
     putchar('\n');
 }

@@ -58,7 +58,7 @@ VNode *CreateNodeList(int vexnum);                        // 创建顶点数组
 VNode CreateVNode(VerTexType data);                       // 创建顶点
 ArcNode CreateArcNode(VNode node, OtherInfo info);        // 创建边
 void CreateArcs(Graph graph, GraphType gt);               // 交互式获取边的信息并完成边的创建和链接
-bool ArcExist(const Graph graph, VNode rear, VNode head); // 判断边是否存，起始的顶点叫尾，指向的顶点叫头
+bool ArcExist(const Graph graph, VNode rear, VNode head); // 判断边是否存在，起始的顶点叫尾，指向的顶点叫头
 int LocaleVex(Graph graph, VerTexType value);             // 根据值获取顶点索引
 VNode GetVNode(Graph graph, int index);                   // 根据索引获取顶点
 void LinkArc(VNode vn, ArcNode an);                       // 把边插入图中
@@ -187,6 +187,8 @@ ArcNode CreateArcNode(VNode adjvex, OtherInfo info)
 
 bool ArcExist(const Graph graph, VNode rear, VNode head)
 {
+    if(graph == NULL)
+        return false;
     for (ArcNode an = rear->firstarc; an != NULL; an = an->nextarc)
         if (an->adjvex == head)
             return true;

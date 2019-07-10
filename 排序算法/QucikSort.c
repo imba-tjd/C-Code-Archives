@@ -81,7 +81,7 @@ void QuickSort4(int array[const], size_t len)
 
     int pivot = array[len - 1]; // 选最后一个数为枢轴
     int slow = 0;
-    for (int fast = 0; fast < len; fast++)
+    for (size_t fast = 0; fast < len; fast++)
     {
         if (array[fast] <= pivot) // pivot算作左边的部分
         {

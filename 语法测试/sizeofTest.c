@@ -1,6 +1,7 @@
 #ifdef TRAVIS
 #pragma GCC diagnostic ignored "-Wsizeof-array-argument"
 #pragma GCC diagnostic ignored "-Wunused-value"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
 #define __USE_MINGW_ANSI_STDIO 1

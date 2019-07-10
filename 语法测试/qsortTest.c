@@ -32,7 +32,7 @@ void PRINT(void)
 {
 
 #define PR(a, b, n)               \
-    for (int i = 0; i < n; i++)   \
+    for (size_t i = 0; i < n; i++)   \
         printf("%" #b " ", a[i]); \
     putchar('\n');
 
