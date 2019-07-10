@@ -81,7 +81,7 @@ struct student *pdelete(struct student *head, int grade)
         {
             pold->next = p->next;
             free(p);
-            p = plod->next;
+            p = pold->next;
         }
         else
         {

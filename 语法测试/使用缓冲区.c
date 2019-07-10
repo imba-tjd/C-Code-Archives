@@ -3,6 +3,7 @@
 
 #define N 30
 char buffer[N], *bufptr = buffer;
+void flusshbuffer(); // 去掉警告
 
 void newmemcpy(char *dest, const char *source, int k)
 {

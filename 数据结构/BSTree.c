@@ -101,7 +101,8 @@ void ClearInput(void)
 
 KeyType GetKey(void)
 {
-    KeyType key = (KeyType)NULL;
+    // KeyType key = (KeyType)NULL;
+    KeyType key = 0;
 
     if (scanf("%d", &key) == EOF)
         InputEnd = true;
@@ -112,7 +113,8 @@ KeyType GetKey(void)
 
 InfoType GetInfo(void)
 {
-    InfoType info = (InfoType)NULL;
+    // InfoType info = (InfoType)NULL;
+    InfoType info = 0;
 
     if (scanf("%c", &info) == EOF)
         InputEnd = true;

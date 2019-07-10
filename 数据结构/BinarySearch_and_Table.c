@@ -66,7 +66,7 @@ void Resize(Table table)
 
 bool BinaryInsert(Table table, DataType data)
 {
-    assert(table != NULL && Compare != NULL);
+    assert(table != NULL); // 原本还有个 && Compare != NULL，但如果Compare不存在就直接编译/链接时报错了，如果存在，也永远不会等于NULL
 
     if (IsFull(table))
         Resize(table);
@@ -136,7 +136,7 @@ bool BinaryInsert(Table table, DataType data)
 
 int BinarySearch(Table table, DataType data, int start, int end) // 使用对称边界，end减一以后才是有效的数据索引
 {
-    assert(table != NULL && Compare != NULL);
+    assert(table != NULL);
 
     if (end < 0) // 但如果count为0，end-1就会为负。所以还是应该用不对称的才好。
         return -1;

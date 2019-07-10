@@ -1,8 +1,12 @@
 // 《C语言解惑》
 // 逻辑操作符的阻断特性
 
+// #pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wparentheses"
+#pragma GCC diagnostic ignored "-Wunused-value"
 #include <stdio.h>
 #define PRINT3(x, y, z) printf(#x "=%d " #y "=%d " #z "=%d\n", x, y, z)
+
 int main(void)
 {
     int x, y, z;
@@ -28,3 +32,4 @@ int main(void)
 
     return 0;
 }
+// #pragma GCC diagnostic pop

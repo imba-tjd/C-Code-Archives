@@ -1,11 +1,12 @@
 // 没改完……算了
 // 试写出一算法，根据依次输入的顶点数据，边的数目，各顶点的信息和各条边的信息，建立一个无向图的邻接表。打印输出该邻接表。
 
-#include <locale.h> // utf-8编码输出不乱码
+#include <locale.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wchar.h>
 
 typedef char VerTexType; // 顶点的数据类型
 typedef int OtherInfo;   // 边的数据类型

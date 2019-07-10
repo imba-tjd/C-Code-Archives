@@ -5,10 +5,11 @@
 
 void bubble_sort(int a[restrict], int n)
 {
+    int t;
     for (int i = 0; i < n - 1; i++)
         for (int j = i + 1; j < n; j++)
             if (a[i] > a[j]) // 从小到大排序
-                a[i] ^= a[j] ^= a[i] ^= a[j];
+                t = a[i], a[i] = a[j], a[j] = t;
 }
 
 int main(void)
