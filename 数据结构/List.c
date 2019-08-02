@@ -1,90 +1,123 @@
+// 打算做出一个会自动扩展的、可用的顺序表；类似于C#的List
+// 但是没写完，因为错误处理有点难弄，不想所有的函数都返回bool。暂时考虑的是失败时直接打印错误信息退出。但是自定义错误error_n是没有的，需要处理
+// 另一个问题是自动扩展需要重新分配空间，这样是无法使用柔性数组的。
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdnoreturn.h>
 
-typedef int DataType;
+#ifndef LIST_DATATYPE
+#define LIST_DATATYPE int
+#endif
+typedef LIST_DATATYPE listdt;
 
-typedef struct List
+typedef struct _list
 {
-    DataType data;
-    struct List *next;
-} * List, *Node;
+    size_t length;
+    listdt data[];
+} * list;
 
-List CreateList(void);
-List CreateNode(DataType data);
-bool Insert(List list, DataType data, int (*Compare)(DataType data1, DataType data2));
+list list_new(size_t initlen);
+void list_delete(list lst);
+void list_append(list lst, listdt data);
+void list_insert(list lst, listdt data, size_t index);
+void list_remove(list lst, size_t index);
+listdt list_get(list lst, size_t index);
+void list_set(list lst, listdt data, size_t index);
+bool list_exist(list lst, listdt data);
+size_t list_indexof(list lst, listdt data);
+size_t list_lastindexof(list lst, listdt data);
+// size_t list_length(list lst);
+void list_shrink(list lst);
+void list_fill(list lst, listdt data);
+void list_clear(list lst);
 
-List CreateList(void)
+static noreturn void Perror(char *message)
 {
-    List list = calloc(1, sizeof(struct List));
-    if (list == NULL)
-        exit(EXIT_FAILURE);
-
-    return list;
+    perror(message);
+    exit(EXIT_FAILURE);
 }
 
-Node CreateNode(DataType data)
+static inline size_t GetSize(size_t len) { return sizeof(struct _list) + sizeof(listdt) * len; }
+#define FORLIST for (size_t i = 0; i < lst->length; i++)
+
+static void *Malloc(size_t len)
 {
-    Node node = calloc(1, sizeof(struct List));
-    if (node == NULL)
-        exit(EXIT_FAILURE);
-
-    node->data = data;
-
-    return node;
+    void *lst = malloc(GetSize(len));
+    if (lst == NULL)
+        Perror("初始化失败");
+    return lst;
 }
 
-bool Insert(List list, DataType data, int (*Compare)(DataType data1, DataType data2))
+static void *Realloc(list lst, size_t siz)
 {
-    assert(list != NULL && Compare != NULL);
+    return realloc(lst, siz);
+}
 
-    Node node = CreateNode(data);
+static void Expand(list lst)
+{
+}
 
-    while (list->next != NULL)
+list list_new(size_t initlen)
+{
+    if (initlen == 0) // 给个默认大小
+        initlen = 512;
+
+    list lst = Malloc(initlen);
+    lst->length = 0;
+    return lst;
+}
+
+void list_delete(list lst)
+{
+    free(lst);
+}
+
+void list_append(list lst, listdt data)
+{
+    lst->data[lst->length++] = data;
+}
+
+listdt list_get(list lst, size_t index)
+{
+    return lst->data[index];
+}
+void list_set(list lst, listdt data, size_t index)
+{
+    lst->data[index] = data;
+}
+size_t list_indexof(list lst, listdt data)
+{
+    FORLIST
     {
-        int result = Compare(list->next->data, data); // data与list的下一项进行比较
-
-        if (result == 0) // 已经存在
-            return false;
-
-        if (result > 0) // 从小到大递增
-        {
-            node->next = list->next;
-            list->next = node;
-            return true;
-        }
-        list = list->next;
+        if (lst->data[i] == data)
+            return i;
     }
-
-    list->next = node; // 插入尾部
-
-    return true;
+    return -1;
 }
 
-// 接口函数
-#define INSERT(list, data) Insert(list, data, &Compare)
-
-int Compare(DataType data1, DataType data2)
+size_t list_lastindexof(list lst, listdt data)
 {
-    return data1 >= data2 ? data1 > data2 ? 1 : 0 : -1;
+    for (size_t i = lst->length; i >= 0; i--)
+        if (lst->data[i] == data)
+            return i;
+    return -1;
 }
 
-int main(void)
+bool list_exist(list lst, listdt data)
 {
-    List list = CreateList();
-    // Insert(list, 1, &Compare);
-    INSERT(list, 1);
-    INSERT(list, 2);
-    INSERT(list, 4);
-    INSERT(list, 3);
-    INSERT(list, 0);
-    INSERT(list, 5);
+    return list_indexof(lst, data) != -1;
+}
 
-    List p = list;
-    while ((p = p->next) != NULL)
-        printf("%d\n", p->data);
+void list_fill(list lst, listdt data)
+{
+    FORLIST
+    lst->data[i] = data;
+}
 
-    // getchar();
-    return 0;
+void list_clear(list lst)
+{
+    FORLIST
+    lst->data[i] = 0; // 无法用list_fill因为可能不存在0到listdt的转换
 }
