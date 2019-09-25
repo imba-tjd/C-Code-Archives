@@ -29,3 +29,13 @@ int main()
     printf("\n");
     return 0;
 }
+
+// 列化版的选择排序：每次都交换一下。正常版的是每次记录下标，最后才交换一次。
+void selection_sort(int a[restrict], int n)
+{
+    int t;
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (a[i] > a[j]) // 从小到大排序
+                t = a[i], a[i] = a[j], a[j] = t;
+}

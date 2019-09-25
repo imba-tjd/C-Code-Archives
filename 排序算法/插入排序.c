@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// 其实这种方法比较低效，它先从头开始找位置，然后又从后往前每个往后移
+// 这种方法先从头开始找位置，然后又从后往前每个往后移，相对低效
 void InsertSort(size_t len, int arr[static restrict len])
 {
     for (size_t i = 1; i < len; i++)   // a[0]认为已经排序好了，之后用DP/数学归纳的思想
@@ -14,7 +14,7 @@ void InsertSort(size_t len, int arr[static restrict len])
             }
 }
 
-// 高效的方法
+// 相对高效的方法，直接从后往前找
 void insert_sort(int a[restrict], int n)
 {
     for (int i = 1; i <= n; i++)
