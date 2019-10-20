@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-// 这种方法本来是先从头开始找位置，然后又从后往前每个往后移，相对低效；但找位置可用二分法，稍微好一点，移动次数仍然和下一个函数一样
-void BinaryInsertSort(size_t len, int arr[static restrict len])
+// 这种方法本来是先从头开始找位置，然后又从后往前每个往后移，相对低效；但找位置可用二分法，叫做折半插入排序，比较次数稍微少一点，移动次数仍然和下一个函数一样
+void InsertSort2(size_t len, int arr[static restrict len])
 {
     for (size_t i = 1; i < len; i++)   // a[0]认为已经排序好了，之后用DP/数学归纳的思想
         for (size_t j = 0; j < i; j++) // 寻找要插入前面数组的位置；可用BinarySearch替代
@@ -14,7 +14,7 @@ void BinaryInsertSort(size_t len, int arr[static restrict len])
             }
 }
 
-// 普通的插入排序，从后往前边比较边移动
+// 直接插入排序，从后往前边比较边移动
 void InsertSort(size_t len, int arr[static restrict len])
 {
     for (size_t i = 1; i <= len; i++)
