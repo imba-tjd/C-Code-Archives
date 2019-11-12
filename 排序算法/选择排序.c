@@ -30,7 +30,8 @@ int main()
     return 0;
 }
 
-// 列化版的选择排序：每次都交换一下。正常版的是每次记录下标，最后才交换一次。
+// 劣化版的选择排序：每次都交换一下。
+// 正常版的是每次记录下标，最后才交换一次。比较O(n^2)，移动O(n)
 void selection_sort(int a[restrict], int n)
 {
     int t;

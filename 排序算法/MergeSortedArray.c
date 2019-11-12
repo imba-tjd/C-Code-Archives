@@ -9,12 +9,14 @@ void MergeSortedArray(
     size_t len2, const int arr2[static restrict len2],
     int arrout[static restrict len1 + len2])
 {
-    size_t i = 0, j = 0;                                   // 用索引处理
-    while (i < len1 || j < len2)                           // 两个都满了时才出循环，用的不是&&
-        if (j == len2 || (i < len1 && arr1[i] <= arr2[j])) // 当另一个满了或自己更小时赋值过去
-            *arrout++ = arr1[i++];
-        else if (i == len1 || (j < len2 && arr1[i] > arr2[j])) // 必须判断自己是否已满(j<len2)，否则另一个没满自己满时解引会越界
-            *arrout++ = arr2[j++];
+    size_t i = 0, j = 0;         // 用索引处理
+    while (i < len1 || j < len2) // 两个都满了时才出循环，用的不是&&
+        // if (j == len2 || (i < len1 && arr1[i] <= arr2[j])) // 当另一个满了或自己更小时赋值过去；必须判断自己是否已满(i<len1)，否则另一个没满自己满时解引会越界
+        //     *arrout++ = arr1[i++];
+        // else if (i == len1 || (j < len2 && arr1[i] > arr2[j])) // 这里其实可以直接一个else解决，见下面改进的一句话方法
+        //     *arrout++ = arr2[j++];
+
+        *arrout++ = j == len2 || (i < len1 && arr1[i] <= arr2[j]) ? arr1[i++] : arr2[j++]; // j==len2的判断不能去掉，否则另一个满了自己没满时解引另一个会越界
 }
 
 // --------------------------
@@ -55,26 +57,26 @@ void Swap(int *a, int *b)
 // 用于第一个数不有序，后面的都有序；思路来自于插入排序
 void insertOnce(int arr[restrict], int *end)
 {
-    int t = *arr;
+    int t = *arr++;
     while (arr < end && *arr < t)
         (arr[-1] = arr[0]), arr++;
     arr[-1] = t;
 }
 
-void MergeSortedArrayInPlace(
-    size_t len1, int arr1[static restrict len1],
-    size_t len2, int arr2[static restrict len2])
+void MergeSortedArrayInPlace(size_t len1, int arr1[static len1], size_t len2, int arr2[static len2])
 {
     int *end1 = arr1 + len1;
     int *end2 = arr2 + len2;
-    while (arr1 < end1 && arr2 < end2) // 因为是原地，只要有一个结束，剩下的自然就排好了
-        if (*arr1 > *arr2)             // 所以也不用越界检查
+    while (arr1 < end1)
+    {
+        if (*arr1 > *arr2)
         {
-            Swap(arr1++, arr2);
+            Swap(arr1, arr2);
             insertOnce(arr2, end2); // 如果发生了交换，arr2可能不再有序
         }
-        else
-            arr2++;
+
+        arr1++;
+    }
 }
 
 // --------------------------
@@ -85,7 +87,8 @@ typedef enum SortType
     BigToSmall = -1
 } SortType;
 
-void *MergeSortedArrayNoType(void *arr1, int len1, void *arr2, int len2, size_t elemsiz, int (*compare)(const void *a, const void *b), SortType type)
+void *MergeSortedArrayNoType(void *arr1, int len1, void *arr2, int len2, size_t elemsiz,
+                             int (*compare)(const void *a, const void *b), SortType type)
 {
     assert(arr1 != NULL && arr2 != NULL && compare != NULL);
 
@@ -122,16 +125,13 @@ int Compare(const void *a, const void *b)
 
 // --------------------------
 // 测试代码
-void bubbleSort(int a[], int n)
+void bubbleSort(int a[restrict], int n)
 {
+    int t;
     for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
-            if (a[i] > a[j]) // 从小到大排列
-            {
-                int t = a[i];
-                a[i] = a[j];
-                a[j] = t;
-            }
+        for (int j = 0; j < n - 1 - i; j++)
+            if (a[j] > a[j + 1])
+                t = a[j], a[j] = a[j + 1], a[j + 1] = t;
 }
 
 void PrintArr(size_t len, int arr[static restrict len])
@@ -172,6 +172,7 @@ void Test2()
 
 void Test3()
 {
+    // 因为此方法是原地的，就不能把两个合在一起了
     int a[LEN] = {49, 23, 33, 26, 22, 57, 7, 14, 47, 29};
     int b[LEN] = {39, 92, 61, 50, 48, 11, 47, 45, 98, 30};
 

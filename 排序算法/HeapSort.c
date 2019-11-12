@@ -45,6 +45,25 @@ void HeapAdjust(int array[], int num, int index)
     }
 }
 
+// 非递归的方法
+void HeapAdjust2(int array[], int len, int k)
+{
+    int t = array[k]; // 把待调整的元素保存到别的地方
+    for (int i = 2 * k; i <= len; i *= 2)
+    { // 每次评估左子树
+        if (i < len && array[i] < array[i + 1])
+            i++; // 右子树更大就换到右边
+        if (t >= array[i])
+            break; // 比左右都大，找到位置
+        else
+        {
+            array[k] = array[i]; // 把较小的与父节点交换，并把交换后的作为新的父节点
+            k = i;
+        }
+    }
+    array[k] = t;
+}
+
 #define LENGTH 10
 int main(void)
 {

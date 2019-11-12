@@ -1,6 +1,7 @@
 // 试写出一算法，完成冒泡排序算法。
 // void bubble_sort(int a[], int n)
-// 改进：如果在某一次排序过程中发现没有要交换的，则说明排序已经完成了。
+// 改进：如果在某一次排序过程中发现没有要交换的，则说明排序已经完成了。即在if中设置flag=true，最外层每次开始时设为false，循环检测如果为false就跳出
+// 另一种算法：双向冒泡。设置low和high，内层有两个循环，一个从low到high，一个从high到low
 #include <stdio.h>
 
 void bubble_sort(int a[restrict], int n)

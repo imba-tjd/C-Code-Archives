@@ -1,6 +1,7 @@
 // 这几个算法都是原地的算法；非原地的有许多不同，但本身的思路特别简单
 // 这几个算法都是递归的算法；改成迭代的需要把间隔从大往小处理，底下的返回pivot的位置就好
 // 因为递归调用时会传指针进去，所以不能加restrict？
+// 复杂度：最坏为O(n^2)，平均为O(nlogn)；空间复杂度：最好为log(n+1)向上取整，最坏为O(n)，平均O(logn)
 // 待看：https://www.zhihu.com/question/39214230
 #include <assert.h>
 #include <stdio.h>
@@ -8,7 +9,36 @@
 #include <string.h> // memcpy
 
 // ----------------------------------
-// 严书上的算法；有一点点不同，没有空a[0]出来
+// 原版严书算法
+int Partition(int A[], int low, int high)
+{
+    int pivot = A[low]; // 当前表中第一个元素
+    while (low < high)
+    {
+        while (low < high && A[high] >= pivot)
+            high--;
+        A[low] = A[high];
+        while (low < high && A[low] <= pivot)
+            low++;
+        A[high] = A[low];
+    }
+    A[low] = pivot;
+    return low;
+}
+
+void QuickSort1(int A[], int low, int high)
+{
+    // 也可用栈或队列保存low和high，在此处循环栈不为空，下面两句直接入栈即可
+    if (low < high)
+    {
+        int pivotpos = Partition(A, low, high);
+        QuickSort1(A, low, pivotpos - 1);
+        QuickSort1(A, pivotpos + 1, high);
+    }
+}
+
+// ----------------------------------
+// 手写的严书上的算法；有一点点不同，没有空a[0]出来
 void QuickSort2(int array[], size_t length)
 {
     assert(array != NULL);
@@ -116,44 +146,24 @@ int *GetArr(int *len)
     return arr;
 }
 
-void Test2()
-{
-    int len;
-    int *arr = GetArr(&len);
-
-    QuickSort2(arr, len);
-    PrintArr(arr, len);
-
-    free(arr);
-}
-
-void Test3()
-{
-    int len;
-    int *arr = GetArr(&len);
-
-    QuickSort3(arr, 0, len - 1);
-    PrintArr(arr, len);
-
-    free(arr);
-}
-
-void Test4()
-{
-    int len;
-    int *arr = GetArr(&len);
-
-    QuickSort4(arr, len);
-    PrintArr(arr, len);
-
-    free(arr);
-}
+#define TestMulti(fun)           \
+    do                           \
+    {                            \
+        int len;                 \
+        int *arr = GetArr(&len); \
+                                 \
+        fun;                     \
+        PrintArr(arr, len);      \
+                                 \
+        free(arr);               \
+    } while (0)
 
 int main(void)
 {
-    Test2();
-    Test3();
-    Test4();
+    TestMulti(QuickSort1(arr, 0, len - 1));
+    TestMulti(QuickSort2(arr, len));
+    TestMulti(QuickSort3(arr, 0, len - 1));
+    TestMulti(QuickSort4(arr, len));
 
     return 0;
 }
