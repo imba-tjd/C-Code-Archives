@@ -7,8 +7,7 @@
 void normalCmp(void);
 void wideCmp(void);
 
-int main(void)
-{
+int main(void) {
     setlocale(LC_ALL, "chs");
 
     // 因为我的代码用的是UTF8编码，这部分的硬编码字符串也是，此时strcmp无意义；而手动输入是能正常比较的
@@ -26,8 +25,6 @@ int main(void)
     putchar('\n');
 
     // wideCmp(); // 张三 李四 王五 赵六
-
-    return 0;
 }
 
 /*
@@ -40,8 +37,7 @@ Linux下那六个直接比较，只会输出三个1，而注释掉任意一组�
 #define MAXSIZE 20
 #define N 4
 
-void normalCmp(void)
-{
+void normalCmp(void) {
     printf("Not Wide: ");
 
     char sn[N][MAXSIZE], t[MAXSIZE];
@@ -66,8 +62,7 @@ void normalCmp(void)
     putchar('\n');
 }
 
-void wideCmp(void)
-{
+void wideCmp(void) {
     wprintf(L"Wide: ");
 
     wchar_t sn[N][MAXSIZE], t[MAXSIZE];

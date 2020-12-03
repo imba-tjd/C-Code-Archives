@@ -1,31 +1,20 @@
-# C-Code-Repository
+# C-Code-Archive
 
-[![Static Analysis](https://travis-ci.com/imba-tjd/C-Code-Repository.svg?branch=master)](https://travis-ci.com/imba-tjd/C-Code-Repository)
+一些C语言代码存档，希望对初学者有帮助。
 
-我的C语言代码仓库，示例代码对初学者还是有点帮助的，大佬就自动无视好了。
+其实我一直对“写正确的代码”有追求，但是C语言写正确的代码实在是太难了：
 
-之前分类太差，现在重新分类，文件需要进行一大堆重命名，所以历史基本上都是不存在的。不过老版本辣鸡代码也没啥看的价值。
+* for循环的下标要用size_t，不用int；单独看起来没什么，但和有符号数混用就有可能坑
+* 容器类要么设计成弱类型(void*)，要么就要全写成宏定义。普通的typedef根本做不到同时使用两个不同类型的容器
+* 处理用户输入困难，错误处理困难
+* 字符串即使分配到堆上，也会要么仍然长度不够，要么空闲浪费太多
+* Windows下处理utf8困难
 
-```text
-神兽保佑,代码无bug
-Code is far away from bug with the animal protecting
-   ┏┓    ┏┓
-  ┏┛┻━━━━┛┻┓
-  ┃        ┃
-  ┃   ━    ┃
-  ┃ ┳┛ ┗┳  ┃
-  ┃        ┃
-  ┃   ┻    ┃
-  ┃        ┃
-  ┗━┓    ┏━┛
-    ┃    ┃
-    ┃    ┃
-    ┃    ┗━━━┓
-    ┃        ┣┓
-    ┃        ┏┛
-    ┗┓┓┏━━┳┓┏┛
-     ┃┫┫  ┃┫┫
-     ┗┻┛  ┗┻┛
+所以我觉得还是不要想着用C写正常的程序了。别用什么无符号数、void*、int32_t，就用int和char。不要深入学C，尽早开始学习别的语言。
 
-https://www.zhihu.com/question/264125960/answer/279259590
-```
+本仓库尽量保证的：
+
+* 格式化代码，大括号不换行
+* 不变的字符串及数组内容用const修饰
+* 无参函数不省略void
+* CI等全部重写完、本地测试过后再开

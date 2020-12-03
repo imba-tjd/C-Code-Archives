@@ -2,37 +2,30 @@
 #include <unistd.h>
 
 const int WIDTH = 25;
-const char *BLANK = "";
+#define BLANK ""
 
-int main(void)
-{
-    for (int i = 0; i <= 100; i += 1) // 进度
-    {
-        static int position = 0;
-        static int lefttoright = 1;
-
+int main(void) {
+    int position = 0;
+    int lefttoright = 1; // 当前正从左往右还是从右往左的flag
+    for (int i = 0; i <= 100; i += 1) {
         printf("[%*s<=>%-*s]", position, BLANK, WIDTH - position - 3, BLANK);
         fflush(stdout);
 
-        usleep(200000LL);
+        usleep(200000); // 0.2秒
 
-        if (lefttoright)
-        {
-            if (position++ == WIDTH - 3)
-            {
+        if (lefttoright) {
+            if (position++ == WIDTH - 3) {
                 lefttoright = 0;
                 position -= 2;
             }
-        }
-        else
-        {
-            if (--position == -1)
-            {
+        } else {
+            if (--position == -1) {
                 lefttoright = 1;
                 position += 2;
             }
         }
 
-        printf("\r");
+        putchar('\r');
     }
+    putchar('\n');
 }

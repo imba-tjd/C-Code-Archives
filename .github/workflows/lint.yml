@@ -1,0 +1,11 @@
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout
+    - run: |
+      gcc -fsyntax-only -Wall -Wextra -DCILINT -fsanitize=undefined,address,leak,pointer-compare,pointer-subtract **/*.c
+      clang -fsyntax-only -Wall -Wextra -DCILINT -fsanitize=undefined,address,leak **/*.c

@@ -1,15 +1,16 @@
 /* 假设某班有不超过40人（具体人数在程序运行时由键盘录入）参加本学期的期末考试，考试科目为语文（CN），数学（MT），英语（EN），科学（SC）。
-要求编写一个学生成绩管理系统，实现对班级学生成绩的录入、修改、查找、删除、显示、排序、统计、保存等操作的管理。
-*/
+要求编写一个学生成绩管理系统，实现对班级学生成绩的录入、修改、查找、删除、显示、排序、统计、保存等操作的管理。*/
+
+// 说明：本项目是C语言程序设计大作业，写的时候水平太差，现在也没时间改，参考价值低。
 
 /* TODO
-in StringToMiddleString：一个汉字的长度也算1（sizeof(WCHAR) == 2）
+StringToMiddleString：一个汉字的长度也算1（sizeof(WCHAR) == 2）
 LoadDB：fwscanf第一次不为7？
 Data.db用utf8保存
-Compare：wcscmp无法做到按照姓名字典顺序排序，strcmp可以.
+Compare：wcscmp无法做到按照姓名字典顺序排序，strcmp可以
 修改和删除的默认值也许应该为N
 scanf %s 读到EOF不返回EOF
-每次保存数据库时前进行备份
+保存数据库时进行备份
 链表的耦合性太高（不过懒得改了）
 WCHAR是windows特有的，应该用wchar_t才对
 */
@@ -22,7 +23,7 @@ WCHAR是windows特有的，应该用wchar_t才对
 #include <stdlib.h>
 #include <time.h>    // 显示日期
 #include <wchar.h>   // 宽字符结构体及函数
-#include <windows.h> // cls清屏
+#include <windows.h> // 不知道为什么会用到的wsprintfW
 
 // 数据结构声明
 typedef struct

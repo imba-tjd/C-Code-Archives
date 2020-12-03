@@ -1,24 +1,20 @@
-// 试写出一算法，完成冒泡排序算法。
-// void bubble_sort(int a[], int n)
-// 改进：如果在某一次排序过程中发现没有要交换的，则说明排序已经完成了。即在if中设置flag=true，最外层每次开始时设为false，循环检测如果为false就跳出
+// 每轮排好最后一个数字
+// 如果在某一次排序过程中发现没有要交换的，则说明排序已经完成了。可在if中设置flag=true，外层每轮开始时设为false，结束本轮后仍是false就结束
 // 另一种算法：双向冒泡。设置low和high，内层有两个循环，一个从low到high，一个从high到low
 #include <stdio.h>
 
-void bubble_sort(int a[restrict], int n)
-{
+void bubble_sort(int arr[], int n) {
     int t;
-    for (int i = 0; i < n - 1; i++)
-        for (int j = 0; j < n - 1 - i; j++) // 每一轮排序保证最后一个数字排好，下一次就不用排了
-            if (a[j] > a[j + 1]) // 从小到大排序
-                t = a[j], a[j] = a[j + 1], a[j + 1] = t;
+    for (int i = 0; i < n - 1; i++) // 可理解为排序轮数
+        for (int j = 0; j < n - 1 - i; j++) // 缩减排序范围
+            if (arr[j] > arr[j + 1]) // 从小到大排序
+                t = arr[j], arr[j] = arr[j + 1], arr[j + 1] = t;
 }
 
-int main(void)
-{
-    int array[10] = {4, 28, 19, 8, 22, 14, 27, 25, 7, 11};
-    bubble_sort(array, 10);
+int main(void) {
+    int arr[10] = {4, 28, 19, 8, 22, 14, 27, 25, 7, 11};
+    bubble_sort(arr, 10);
     for (int i = 0; i < 10; i++)
-        printf("%d ", array[i]);
+        printf("%d ", arr[i]);
     putchar('\n');
-    return 0;
 }

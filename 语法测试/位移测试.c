@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define PR(x) printf("%d\n", x)
 
-int main(void)
-{
+int main(void) {
     PR(INT_MAX); // 2147483647
 
     PR(0xffff);      // 65535

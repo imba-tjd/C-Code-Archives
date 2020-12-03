@@ -5,8 +5,7 @@
 
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     double a1, a2, a3, a4, a5, a6, a7;
 
     a1 = 0.555;
@@ -45,8 +44,7 @@ int main(void)
 }
 
 // 未思考负数
-double Round(double num, unsigned digit)
-{
+double Round(double num, unsigned digit) {
     int resize = 1;
     for (unsigned i = 0; i < digit; i++)
         resize *= 10; // 可以用pow替代

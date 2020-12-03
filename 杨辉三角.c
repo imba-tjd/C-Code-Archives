@@ -2,12 +2,10 @@
 #include <stdio.h>
 #define N 10
 
-int main(void)
-{
+int main(void) {
     int a[N] = {1};
-    for (int line = 0; line < N; line++)
-    {
-        for (int i = line; i > 0; i--)
+    for (int line = 0; line < N; line++) {
+        for (int i = line; i > 0; i--) // 每次循环会改变原来的数组
             a[i] += a[i - 1];
         for (int i = 0; i <= line; i++)
             printf(" %3d", a[i]);

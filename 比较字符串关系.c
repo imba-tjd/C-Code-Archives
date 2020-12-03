@@ -5,6 +5,8 @@
 3：两个字符串长度相等，相应位置上的字符仅在不区分大小写的前提下才能达到完全一致（也就是说，它并不满足情况2）。比如 beijing 和 BEIjing。
 4：两个字符串长度相等，但是即使是不区分大小写也不能使这两个字符串一致。比如 Beijing 和 Nanjing。
 编程判断输入的两个字符串之间的关系属于这四类中的哪一类，给出所属的类的编号。
+
+严格程度依次是2341。本代码实现了两种方式，但其实本质上就是一种。
 */
 
 #include <assert.h>
@@ -12,59 +14,48 @@
 #include <stdio.h>
 
 static inline bool EitherEnd(char a, char b) { return a == '\0' || b == '\0'; }
-
 static inline bool BothEnd(char a, char b) { return a == '\0' && b == '\0'; }
-
 static inline bool Equals(char a, char b) { return a == b; }
-
-static inline bool EqualsIgnoreCase(char a, char b)
-{
+static inline bool EqualsIgnoreCase(char a, char b) {
     static const int DISTANCE = 'a' - 'A';
     return a == b || a + DISTANCE == b || a == b + DISTANCE;
 }
 
 #define ARGS str1[i], str2[i]
 
-int SwitchCompare(char *str1, char *str2)
-{
+int SwitchCompare(const char *str1, const char *str2) {
     int status = 2;
-
-    for (int i = 0; !BothEnd(ARGS); i++)
-    {
-        switch (status)
-        {
-        case 2:
-        {
+    for (int i = 0; !BothEnd(ARGS); i++) {
+        switch (status) {
+        case 2: {
             if (!Equals(ARGS))
-                status = 3;
+                status = 3; // 要继续测试case 3
+            else
+                continue;
         }
-        case 3:
-        {
+        case 3: {
             if (!EqualsIgnoreCase(ARGS))
                 status = 4;
+            else
+                continue;
         }
-        case 4:
-        {
+        case 4: {
             if (EitherEnd(ARGS))
-                return 1;
+                return 1; // 不能像另一种一样break出循环，因为在switch里
         }
         }
     }
-
     return status;
 }
 
-int LoopCompare(char *str1, char *str2)
-{
+int LoopCompare(const char *str1, const char *str2) {
     int status = 2;
-    for (int i = 0; !BothEnd(ARGS); i++)
-    {
+    for (int i = 0; !BothEnd(ARGS); i++) {
         if (status == 2 && !Equals(ARGS))
             status = 3;
         if (status == 3 && !EqualsIgnoreCase(ARGS))
             status = 4;
-        if (status == 4 && EitherEnd(ARGS))
-        {
+        if (status == 4 && EitherEnd(ARGS)) {
             status = 1;
             break;
         }
@@ -72,39 +63,30 @@ int LoopCompare(char *str1, char *str2)
     return status;
 }
 
-typedef struct
-{
-    char str1[10];
-    char str2[10];
-} Case;
+void Test(void) {
+    typedef struct {
+        const char *str1;
+        const char *str2;
+    } Case;
 
-void AssertOnce(Case _case, int expect, int (*callback)(char *str1, char *str2))
-{
-    int status;
-    status = callback(_case.str1, _case.str2);
-    assert(status == expect);
-}
-
-void Test(void)
-{
-    Case cases[4] = {
+    Case cases[4] = { // 注意case是关键字，要么用_case；因为四个测试用例刚好和状态对应，就硬编码长度了
         {"Beijing", "Hebei"},
         {"Beijing", "Beijing"},
         {"beijing", "BEIjing"},
         {"Beijing", "Nanjing"},
     };
 
-    for (int i = 0; i < sizeof(cases) / sizeof(*cases); i++)
-    {
-        AssertOnce(cases[i], i + 1, &SwitchCompare);
-        AssertOnce(cases[i], i + 1, &LoopCompare);
+    for (int i = 0; i < 4; i++) {
+        assert(i + 1 == SwitchCompare(cases[i].str1,cases[i].str2));
+        assert(i + 1 == LoopCompare(cases[i].str1,cases[i].str2));
     }
+    puts("Tests passed.");
 }
 
-int main(void)
-{
-    Test();
+int main(void) {
+    Test(); // 自动测试
 
+    // 手动使用
     char str1[11], str2[11];
     scanf("%s %s", str1, str2);
 
@@ -113,6 +95,4 @@ int main(void)
     s2 = SwitchCompare(str1, str2);
 
     printf("%d %d\n", s1, s2);
-
-    return 0;
 }

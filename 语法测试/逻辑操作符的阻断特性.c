@@ -5,10 +5,10 @@
 #pragma GCC diagnostic ignored "-Wparentheses"
 #pragma GCC diagnostic ignored "-Wunused-value"
 #include <stdio.h>
+
 #define PRINT3(x, y, z) printf(#x "=%d " #y "=%d " #z "=%d\n", x, y, z)
 
-int main(void)
-{
+int main(void) {
     int x, y, z;
     x = y = z = 1;
     ++x || ++y && ++z;
@@ -29,7 +29,5 @@ int main(void)
     ++x && ++y || ++z;
     PRINT3(x, y, z);
     // x=0 y=0 z=-1
-
-    return 0;
 }
 // #pragma GCC diagnostic pop

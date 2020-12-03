@@ -104,30 +104,27 @@ void QuickSort3(int array[const], int left, int right)
 // ----------------------------------
 // 算法导论的算法。快慢指针从左开始，[0,slow)是小于枢轴的部分，[slow,fast)是大于枢轴的部分
 // fast是当前评估的位置，如果大于枢轴就继续往右走；如果小于，则于slow交换
-void QuickSort4(int array[const], size_t len)
-{
+void QuickSort4(int array[], int len) {
     if (len <= 1)
         return;
 
-    int pivot = array[len - 1]; // 选最后一个数为枢轴
+    int pivot = array[len - 1];
     int slow = 0;
-    for (size_t fast = 0; fast < len; fast++)
-    {
-        if (array[fast] <= pivot) // pivot算作左边的部分
-        {
+    for (int fast = 0; fast < len; fast++) {
+        if (array[fast] <= pivot) { // pivot算作左边的部分
             int t = array[fast];
             array[fast] = array[slow];
             array[slow] = t;
             slow++;
         }
     }
-    QuickSort4(array, slow - 1);          // 最后交换pivot后slow还++了，所以slow-1才是pivot的位置；且这个参数是len，即开区间，所以直接传pivot的位置就好
-    QuickSort4(array + slow, len - slow); //slow处即pivot的位置，但
+    QuickSort4(array, slow - 1);          // 最后交换pivot后slow还++了，所以slow-1才是pivot的位置；此参数是开区间，所以直接传pivot的位置就好
+    QuickSort4(array + slow, len - slow); // slow-1处排好了，slow处没排好
 }
 
 // ----------------------------------
 // 测试
-void PrintArr(const int arr[restrict], size_t len)
+void PrintArr(const int arr[], size_t len)
 {
     for (size_t i = 0; i < len; i++)
         printf("%d ", arr[i]);
