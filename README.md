@@ -1,4 +1,4 @@
-# C-Code-Archive
+# C Code Archives
 
 一些C语言代码存档，希望对初学者有帮助。
 
