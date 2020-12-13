@@ -77,8 +77,8 @@ void Test(void) {
     };
 
     for (int i = 0; i < 4; i++) {
-        assert(i + 1 == SwitchCompare(cases[i].str1,cases[i].str2));
-        assert(i + 1 == LoopCompare(cases[i].str1,cases[i].str2));
+        assert(i + 1 == SwitchCompare(cases[i].str1, cases[i].str2));
+        assert(i + 1 == LoopCompare(cases[i].str1, cases[i].str2));
     }
     puts("Tests passed.");
 }

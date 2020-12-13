@@ -15,12 +15,12 @@ int main(void) {
     a5 = 4.555;
     a6 = 5.555;
     a7 = 6.555;
-    printf("%.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf\n", // 当想要保留两位小数时
+    printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f\n", // 当想要保留两位小数时
            a1, a2, a3, a4, a5, a6, a7);
     // 0.56 1.55 2.56 3.56 4.55 5.55 6.55
     // 有的会”四舍五入“，有的不会
 
-    printf("%.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf\n",
+    printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
            a1 + 0.005, a2 + 0.005, a3 + 0.005, a4 + 0.005, a5 + 0.005, a6 + 0.005, a7 + 0.005);
     // 0.56 1.56 2.56 3.56 4.56 5.56 6.56
     // 看起来成功四舍五入了，然而：
@@ -32,24 +32,26 @@ int main(void) {
     a5 = 4.554;
     a6 = 5.554;
     a7 = 6.554;
-    printf("%.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf\n",
+    printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
            a1 + 0.005, a2 + 0.005, a3 + 0.005, a4 + 0.005, a5 + 0.005, a6 + 0.005, a7 + 0.005);
     // 0.56 1.56 2.56 3.56 4.56 5.56 6.56
     // 本来此时不应该四舍五入的
+    // 总之结论是不要直接依靠printf的精度来四舍五入
 
     // 解决办法：
     double Round(double num, unsigned digit);
-    printf("%.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf\n",
+    printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
            Round(a1, 2), Round(a2, 2), Round(a3, 2), Round(a4, 2), Round(a5, 2), Round(a6, 2), Round(a7, 2));
 }
 
-// 未思考负数
+// 未处理负数，理论上去掉负号计算完再加上即可
 double Round(double num, unsigned digit) {
     int resize = 1;
     for (unsigned i = 0; i < digit; i++)
         resize *= 10; // 可以用pow替代
 
     // 利用 (int)(1.4+0.5) == 1；(int)(1.5+0.5) == 2
-    // 分子的两个强转可直接用math.h的 double floor( double arg ); 替代
+    // 分子的两个强转也可用math.h的floor替代，或者整个分子都可以用round(num*resize)替代
+    // 虽然还是不懂0.15本来是0.14999但*10后就完全是1.5了
     return (double)((int)(num * resize + 0.5)) / resize;
 }
