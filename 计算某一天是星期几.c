@@ -1,10 +1,10 @@
 // 计算某一天是星期几
 // 以1900年1月1日星期一为基准；不要试图以手动输入年月日星期为基准去算，否则就连年是否要加1都需要大量判断；不过现在才发现tm_wday已经算好了
 
+#include <assert.h>
 #include <locale.h>
 #include <stdio.h>
 #include <time.h>
-#include <assert.h>
 
 typedef struct {
     int year;

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <unistd.h> // posix的sleep
+#include <unistd.h>  // posix的sleep
 
 const char *Characters = "-\\|/";
 

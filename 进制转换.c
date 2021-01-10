@@ -17,10 +17,10 @@ static int R;
 
 void convert(int a) {
     if (a >= R)
-        convert(a / R); // 先递归后输出，倒序
+        convert(a / R);  // 先递归后输出，倒序
 
     char ch = a % R;
-    putchar(ch < 10 ? ch + '0' : ch + 'A' - 10); // 10才对应A
+    putchar(ch < 10 ? ch + '0' : ch + 'A' - 10);  // 10才对应A
 }
 
 int main(void) {

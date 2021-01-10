@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h> // srand, rand
-#include <string.h> // memcpy
-#include <time.h>   // time
+#include <stdlib.h>  // srand, rand
+#include <string.h>  // memcpy
+#include <time.h>    // time
 
 void Swap(int *a, int *b) {
     int t = *a;

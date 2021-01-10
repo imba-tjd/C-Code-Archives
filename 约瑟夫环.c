@@ -13,9 +13,9 @@ int main(void) {
     int k;
     scanf("%d", &k);
 
-    int i = 0, cnt = 1, out = 0; // 分别代表当前位置，本轮报到多少，出圈几个人
+    int i = 0, cnt = 1, out = 0;  // 分别代表当前位置，本轮报到多少，出圈几个人
     while (out != N) {
-        if (i == N - out) // 循环下标
+        if (i == N - out)  // 循环下标
             i = 0;
 
         if (cnt == k) {
@@ -24,10 +24,9 @@ int main(void) {
             out++;
             cnt = 1;
 
-            for (int j = i; j < N - out; j++) // 去掉那个人，往前移
+            for (int j = i; j < N - out; j++)  // 去掉那个人，往前移
                 num[j] = num[j + 1];
-        }
-        else
+        } else
             cnt++, i++;
     }
 }

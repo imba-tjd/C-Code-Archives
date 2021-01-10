@@ -14,7 +14,7 @@ int gcd(int x, int y) {
     for (int i = a; i >= 1; i--)
         if (a % i == 0 && b % i == 0)
             return i;
-    return 1; // 实际上不会执行到，循环中到1时必返回
+    return 1;  // 实际上不会执行到，循环中到1时必返回
 }
 
 int lcm(int x, int y) {

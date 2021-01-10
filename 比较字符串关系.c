@@ -29,7 +29,7 @@ int SwitchCompare(const char *str1, const char *str2) {
         switch (status) {
         case 2: {
             if (!Equals(ARGS))
-                status = 3; // 要继续测试case 3
+                status = 3;  // 要继续测试case 3
             else
                 continue;
         }
@@ -41,7 +41,7 @@ int SwitchCompare(const char *str1, const char *str2) {
         }
         case 4: {
             if (EitherEnd(ARGS))
-                return 1; // 不能像另一种一样break出循环，因为在switch里
+                return 1;  // 不能像另一种一样break出循环，因为在switch里
         }
         }
     }
@@ -69,7 +69,8 @@ void Test(void) {
         const char *str2;
     } Case;
 
-    Case cases[4] = { // 注意case是关键字，要么用_case；因为四个测试用例刚好和状态对应，就硬编码长度了
+    Case cases[4] = {
+        // 注意case是关键字，要么用_case；因为四个测试用例刚好和状态对应，就硬编码长度了
         {"Beijing", "Hebei"},
         {"Beijing", "Beijing"},
         {"beijing", "BEIjing"},
@@ -84,7 +85,7 @@ void Test(void) {
 }
 
 int main(void) {
-    Test(); // 自动测试
+    Test();  // 自动测试
 
     // 手动使用
     char str1[11], str2[11];
