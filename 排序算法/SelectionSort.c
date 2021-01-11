@@ -4,7 +4,7 @@ void selection_sort(int arr[], int n) {
     int t;
     for (int i = 0; i < n - 1; i++) {
         int minndx = i;
-        for (int j = i + 1; j < n; j++) // 从后面找一个数
+        for (int j = i + 1; j < n; j++)  // 从后面找一个数
             if (arr[j] < arr[minndx])
                 minndx = j;
         if (minndx != i)
@@ -18,7 +18,7 @@ void selection_sort2(int arr[], int n) {
     int t;
     for (int i = 0; i < n - 1; i++)
         for (int j = i + 1; j < n; j++)
-            if (arr[i] > arr[j]) // 从小到大排序
+            if (arr[i] > arr[j])  // 从小到大排序
                 t = arr[i], arr[i] = arr[j], arr[j] = t;
 }
 
@@ -29,4 +29,3 @@ int main() {
         printf("%d ", arr[i]);
     putchar('\n');
 }
-

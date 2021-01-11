@@ -28,7 +28,7 @@ int c4(const char *a, const char *b) { // 等价于普通的strcmp
 void PRINT(void) {
 
 #define PR(arr, type, n)               \
-    for (int i = 0; i < n; i++)   \
+    for (size_t i = 0; i < n; i++)   \
         printf(type " ", arr[i]); \
     putchar('\n');
 

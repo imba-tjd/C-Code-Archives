@@ -1,11 +1,11 @@
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
 
 // 返回索引，理论上应该用ssize_t
 int binary_search(const int arr[], size_t from, size_t to, int target) {
-    // if (to - from == 1) // 不要这样做，例如当长度是2时就会冲出去
+    // if (to - from == 1) // 不要这样做，可能直接变到0
     //     return arr[from] == target ? from : -1;
-    if (to - from <= 0)
+    if (to - from == 0)  // 根据LC测试不会<0
         return -1;
 
     size_t mid = from + (to - from) / 2;
@@ -18,21 +18,21 @@ int binary_search(const int arr[], size_t from, size_t to, int target) {
         return binary_search(arr, mid + 1, to, target);
 }
 
-// 虽然没有修改数组，但如果加const，返回值类型也必须加，否则真的传进来const数组而返回非const指针就出错了；但不加const又不方便和其它实现一起测试，有警告
+// 返回指针。参数数组加了const，返回的指针也必须加；若是C++可用const_cast重载非const版
 const int *binary_search2(const int arr[], int len, int target) {
     if (len == 0)
         return NULL;
 
     int mid = len / 2;
     if (arr[mid] == target)
-        return arr+mid;
+        return arr + mid;
     else if (arr[mid] > target)
         return binary_search2(arr, mid, target);
     else
         return binary_search2(arr + mid + 1, len - mid - 1, target);
 }
 
-// 甚至比递归更简单
+// 迭代。甚至比递归更简单
 int binary_search3(const int arr[], int len, int target) {
     int from = 0, to = len;
     while (to - from > 0) {
@@ -56,7 +56,7 @@ int binary_search2_wrapper(const int arr[], int len, int target) {
     return result == NULL ? -1 : result - arr;
 }
 
-void Test(int(*fun)(const int[], int, int)) {
+void Test(int (*fun)(const int[], int, int)) {
     int arr1[] = {7, 8, 14, 35, 39, 44, 63, 77, 96, 98};
     assert(0 == fun(arr1, 10, 7));
     assert(4 == fun(arr1, 10, 39));
@@ -67,6 +67,7 @@ void Test(int(*fun)(const int[], int, int)) {
     int arr2[] = {3, 7};
     assert(-1 == fun(arr2, 2, 5));
     assert(1 == fun(arr2, 2, 7));
+    assert(-1 == fun(arr2, 2, 9));
 }
 
 int main(void) {

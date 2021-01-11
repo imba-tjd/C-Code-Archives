@@ -1,8 +1,4 @@
-#ifdef CILINT
-#pragma GCC diagnostic ignored "-Wsizeof-array-argument"
-#pragma GCC diagnostic ignored "-Wunused-value"
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
+#pragma GCC diagnostic ignored "-Wsizeof-array-argument" // 手动测试时注释掉
 
 #include <stdio.h>
 
