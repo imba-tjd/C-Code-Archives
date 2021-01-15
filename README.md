@@ -1,5 +1,7 @@
 # C Code Archives
 
+![Lint](https://github.com/imba-tjd/C-Code-Archives/workflows/Lint/badge.svg)
+
 一些C语言代码存档，希望对初学者有帮助。
 
 其实我一直对“写正确的代码”有追求，但是C语言写正确的代码实在是太难了：

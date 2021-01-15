@@ -1,3 +1,4 @@
+name: Lint
 on: push
 
 jobs:
@@ -5,7 +6,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@master
     - run: |
-      gcc -fsyntax-only -Wall -Wextra -DCILINT -fsanitize=undefined,address,leak,pointer-compare,pointer-subtract **/*.c
-      clang -fsyntax-only -Wall -Wextra -DCILINT -fsanitize=undefined,address,leak **/*.c
+        clang -fsyntax-only -Wall -Werror **/*.c;
+        clang -c --analyze -fsanitize=undefined -Werror **/*.c;
+        # gcc -fsanitize=undefined,address,leak,pointer-compare,pointer-subtract **/*.c;
+        # clang没有pointer-compare,pointer-subtract，但有memory；gcc的undefined是runtime的
+        # 未来可用gcc编译运行排序算法和数据结构，因为那些有测试用例且不会从用户处读取
