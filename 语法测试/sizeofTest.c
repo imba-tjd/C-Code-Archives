@@ -1,4 +1,5 @@
 #pragma GCC diagnostic ignored "-Wsizeof-array-argument" // 手动测试时注释掉
+#pragma GCC diagnostic ignored "-Wunevaluated-expression"
 
 #include <stdio.h>
 

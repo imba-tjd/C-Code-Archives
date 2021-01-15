@@ -98,12 +98,16 @@ void Test(void (*fun)(int arr[], int len)) {
 
 // 模拟闭包
 static void (*FUN)(int[], int, int);
+typedef void (*qs1funptr)(int[], int, int);
+typedef void (*qs4funptr)(int[], int);
 
 void wrapper(int arr[], int len) {
     FUN(arr, 0, len - 1);
 }
+
 // 柯里化，接收一个三个参数的函数指针，返回一个两个参数的函数指针
-void (*fun_wrapper(void (*fun)(int[], int, int)))(int[], int) {
+// void (*fun_wrapper(void (*fun)(int[], int, int)))(int[], int)
+qs4funptr fun_wrapper(qs1funptr fun){
     FUN = fun;
     return wrapper;
 }
