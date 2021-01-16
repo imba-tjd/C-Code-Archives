@@ -68,14 +68,14 @@ void QuickSort4(int array[], int len) {
 
     int pivot = array[len - 1];
     int slow = 0;
-    for (int fast = 0; fast < len; fast++) {
+    for (int fast = 0; fast < len; fast++)
         if (array[fast] <= pivot) {  // pivot算作左边的部分
             int t = array[fast];
             array[fast] = array[slow];
             array[slow] = t;
             slow++;
         }
-    }
+
     QuickSort4(array, slow - 1);           // 最后交换pivot后slow还++了，所以slow-1才是pivot的位置；此参数是开区间，所以直接传pivot的位置就好
     QuickSort4(array + slow, len - slow);  // slow-1处排好了，slow处没排好
 }
