@@ -1,4 +1,6 @@
 // 头结点单独处理的实现
+// 返回指针的函数已考虑返回NULL的情况
+// 如果一开始head = head->next，那head就是当前结点，否则就相当于prev结点
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +22,7 @@ Node* Node_new(int data) {
 }
 
 void Node_append(Node* head, Node* n) {
-    while (head->next != NULL)
+    while (head->next)
         head = head->next;
     head->next = n;
 }
@@ -33,10 +35,10 @@ void Node_insert(Node* head, Node* n, int ndx) {
 }
 
 Node* Node_find(Node* head, int data) {
-    while ((head = head->next) != NULL)
-        if (head->data == data)
-            return head;
-    return NULL;
+    head = head->next;
+    while (head && head->data != data)
+        head = head->next;
+    return head;
 }
 
 Node* Node_find_at(Node* head, int ndx) {
@@ -45,34 +47,33 @@ Node* Node_find_at(Node* head, int ndx) {
     return head->next;
 }
 
-// 必须要在前一个结点检查
 Node* Node_remove(Node* head, int data) {
-    while (head->next != NULL)
-        if (head->next->data != data)
-            head = head->next;
-        else {
-            Node* t = head->next;
-            head->next = head->next->next;
-            return t;
-        }
-    return NULL;
+    Node* prev = head;
+    head = head->next;
+
+    while (head && head->data != data)
+        prev = head, head = head->next;
+
+    if (head)
+        prev->next = head->next;
+    return head;
 }
 
 Node* Node_remove_at(Node* head, int ndx) {
     while (--ndx >= 0)
         head = head->next;
 
-    Node* t = head->next;
-    if (t != NULL)
-        head->next = t->next;
-    return t;  // 包含t==NULL
+    Node* toberemoved = head->next;
+    if (toberemoved)
+        head->next = toberemoved->next;
+    return toberemoved;
 }
 
 void Node_reverse(Node* head) {
     Node new_head;
     Node_init(&new_head, 0);
 
-    while (head->next != NULL) {
+    while (head->next) {
         Node* t = head->next;
         head->next = t->next;
         t->next = NULL;
