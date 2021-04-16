@@ -28,8 +28,9 @@ void Node_append(Node* head, Node* n) {
 }
 
 void Node_insert(Node* head, Node* n, int ndx) {
-    while (--ndx >= 0)
+    while (head->next && --ndx >= 0) // ndx大于长度时本实现选择在最后添加
         head = head->next;
+
     n->next = head->next;
     head->next = n;
 }
@@ -42,7 +43,7 @@ Node* Node_find(Node* head, int data) {
 }
 
 Node* Node_find_at(Node* head, int ndx) {
-    while (--ndx >= 0)
+    while (head->next && --ndx >= 0)
         head = head->next;
     return head->next;
 }
@@ -60,7 +61,7 @@ Node* Node_remove(Node* head, int data) {
 }
 
 Node* Node_remove_at(Node* head, int ndx) {
-    while (--ndx >= 0)
+    while (head->next && --ndx >= 0)
         head = head->next;
 
     Node* toberemoved = head->next;
@@ -83,6 +84,13 @@ void Node_reverse(Node* head) {
     head->next = new_head.next;
 }
 
+int Node_length(Node* head) {
+    int count = 0;
+    while (head->next)
+        head = head->next, count++;
+    return count;
+}
+
 int main(void) {
     Node head;
     Node_init(&head, 0);
@@ -91,15 +99,25 @@ int main(void) {
     Node_append(&head, Node_new(3));
     assert(head.next->data == 2);
     Node_insert(&head, Node_new(1), 0);
+    // 1 2 3
+    assert(Node_length(&head) == 3);
     assert(head.next->data == 1);
     assert(Node_remove(&head, 2)->data == 2);
     assert(Node_find(&head, 2) == NULL);
     assert(Node_remove(&head, 2) == NULL);
     Node_reverse(&head);
+    // 3 1
     assert(head.next->data == 3);
     assert(Node_find_at(&head, 1)->data == 1);
     assert(Node_remove_at(&head, 0)->data == 3);
+    // 1
     assert(head.next->data == 1);
     assert(Node_find_at(&head, 1) == NULL);
+    assert(Node_find_at(&head, 2) == NULL);
     assert(Node_remove_at(&head, 1) == NULL);
+    assert(Node_remove_at(&head, 2) == NULL);
+    Node_insert(&head, Node_new(4), 3);
+    // 1 4
+    assert(Node_length(&head) == 2);
+    assert(head.next->next->data == 4);
 }
