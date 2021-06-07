@@ -1,5 +1,6 @@
 // 《C语言解惑》
-// 逻辑操作符的阻断特性
+// 逻辑操作符的阻断(短路)特性
+// 虽然&&的优先级更高，但那只影响“加括号”，运算仍从左向右
 
 // #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wparentheses"
