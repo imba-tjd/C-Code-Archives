@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 int is_prime(int n) {
-    if (n <= 2)
+    if (n < 2)
         return 0;
     for (int i = 2, sqrtn = sqrt(n); i <= sqrtn; i++)
         if (n % i == 0)
