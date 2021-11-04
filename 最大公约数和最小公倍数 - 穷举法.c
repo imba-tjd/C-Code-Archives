@@ -1,12 +1,7 @@
 #include <stdio.h>
 
-int max(int a, int b) {
-    return a > b ? a : b;
-}
-
-int min(int a, int b) {
-    return a < b ? a : b;
-}
+#define max(a, b) a > b ? a : b;
+#define min(a, b) a < b ? a : b;
 
 int gcd(int x, int y) {
     int b = max(x, y);

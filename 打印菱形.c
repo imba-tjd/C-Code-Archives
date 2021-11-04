@@ -7,14 +7,14 @@ int main(void) {
             printf("  ");
         for (int j = 0; j < 2 * i + 1; j++)
             printf("* ");
-        printf("\n");
+        putchar('\n');
     }
     for (int i = 0; i < N - 1; i++) {
         for (int j = 0; j <= i; j++)
             printf("  ");
         for (int j = 0; j < 2 * (N - 1 - i) - 1; j++)
             printf("* ");
-        printf("\n");
+        putchar('\n');
     }
 }
 /* 输出：
@@ -25,5 +25,12 @@ int main(void) {
   * * * * *
     * * *
       *
-把空格变成1个就是另一种风格。
+均减少一个空格后的输出：
+   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *
 */

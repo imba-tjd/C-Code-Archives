@@ -13,7 +13,7 @@ int main(void) {
     int k;
     scanf("%d", &k);
 
-    int i = 0, cnt = 1, out = 0;  // 分别代表当前位置，本轮报到多少，出圈几个人
+    int i = 0, cnt = 1, out = 0;  // 分别代表 当前位置，本轮报到多少，出圈几个人
     while (out != N) {
         if (i == N - out)  // 循环下标
             i = 0;

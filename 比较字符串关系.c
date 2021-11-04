@@ -6,7 +6,7 @@
 4：两个字符串长度相等，但是即使是不区分大小写也不能使这两个字符串一致。比如 Beijing 和 Nanjing。
 编程判断输入的两个字符串之间的关系属于这四类中的哪一类，给出所属的类的编号。
 
-严格程度依次是2341。本代码实现了两种方式，但其实本质上就是一种。
+严格程度从强到弱依次是2341。本代码实现了两种方式，但其实本质上就是一种。
 */
 
 #include <assert.h>
@@ -64,19 +64,17 @@ int LoopCompare(const char *str1, const char *str2) {
 }
 
 void Test(void) {
-    typedef struct {
+    struct {
         const char *str1;
         const char *str2;
-    } Case;
-
-    Case cases[4] = {
-        // 注意case是关键字，要么用_case；因为四个测试用例刚好和状态对应，就硬编码长度了
+    } cases[4] = {  // 注意case是关键字
         {"Beijing", "Hebei"},
         {"Beijing", "Beijing"},
         {"beijing", "BEIjing"},
         {"Beijing", "Nanjing"},
     };
 
+    // 四个测试用例刚好和状态值对应，就硬编码对应关系了
     for (int i = 0; i < 4; i++) {
         assert(i + 1 == SwitchCompare(cases[i].str1, cases[i].str2));
         assert(i + 1 == LoopCompare(cases[i].str1, cases[i].str2));

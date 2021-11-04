@@ -1,9 +1,9 @@
-// 用（递归）分治法设计一个算法，在数组A中寻找最大元素和最小元素
+// 用（递归）分治法设计一个算法，在数组A中寻找最大元素和最小元素。实际没啥意义，因为数组无序，还不如普通遍历一遍
 #include <stdio.h>
 
-void MaxAndMin(const int arr[], int n, int *max, int *min) {
+void MaxAndMin(const int arr[], int n, int *outmax, int *outmin) {
     if (n == 1) {
-        *max = *min = arr[0];
+        *outmax = *outmin = arr[0];
         return;
     }
 
@@ -11,8 +11,8 @@ void MaxAndMin(const int arr[], int n, int *max, int *min) {
     int max1, max2, min1, min2;
     MaxAndMin(arr, half, &max1, &min1);
     MaxAndMin(arr + half, n - half, &max2, &min2);
-    *max = max1 > max2 ? max1 : max2;
-    *min = min1 < min2 ? min1 : min2;
+    *outmax = max1 > max2 ? max1 : max2;
+    *outmin = min1 < min2 ? min1 : min2;
 }
 
 int main(void) {
