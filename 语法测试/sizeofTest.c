@@ -1,5 +1,5 @@
 #pragma GCC diagnostic ignored "-Wsizeof-array-argument" // 手动测试时注释掉
-#pragma GCC diagnostic ignored "-Wunevaluated-expression"
+#pragma clang diagnostic ignored "-Wunevaluated-expression"
 
 #include <stdio.h>
 
@@ -12,7 +12,7 @@ int Fun1(void) {
 
 void Fun2(int d[3]) {
     PRINTP(d); // sizeof(d) = 8
-    // sizeof on array function parameter will return size of 'int *' instead of 'int [3]'
+    // warning: 'sizeof' on array function parameter 'd' will return size of 'int *' instead of 'int [3]'
 }
 
 void Fun3(int (*d)[3]) {
@@ -32,7 +32,7 @@ int main(void) {
     int d[3] = {15};
     void *e = NULL;
 
-    printf("sizeof(++a) = %zu, ", sizeof(++a)); // sizeof(++a) = 4; expression with side effects has no effect in an unevaluated context
+    printf("sizeof(++a) = %zu, ", sizeof(++a)); // sizeof(++a) = 4; warning: expression with side effects has no effect in an unevaluated context
     printf("a = %d\n", a);                      // a = 11
 
     PRINTP(b); // sizeof(b) = 8

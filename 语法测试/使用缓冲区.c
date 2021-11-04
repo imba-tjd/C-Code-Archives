@@ -3,17 +3,18 @@
 
 #define N 30
 char buffer[N], *bufptr = buffer;
-void flusshbuffer(){} // 仅为示意
+void flushbuffer(){} // 仅为示意
 
 void mymemcpy(char *dest, const char *src, int k) {
     while (k-- > 0)
         *dest++ = *src++;
 }
 
+// 不断把src的内容写入buffer中
 void bufwrite(char *src, int n) {
     while (n > 0) {
         if (bufptr == &buffer[N]) // 使用最后一个元素的后一个元素的地址是允许的
-            flusshbuffer();
+            flushbuffer();
 
         int rem = N - (bufptr - buffer); // 或 (buffer + N) - bufptr
         int k = n > rem ? rem : n;
@@ -23,5 +24,5 @@ void bufwrite(char *src, int n) {
         src += k;
         n -= k;
     }
-    flusshbuffer();
+    flushbuffer();
 }

@@ -2,7 +2,6 @@
 // 逻辑操作符的阻断(短路)特性
 // 虽然&&的优先级更高，但那只影响“加括号”，运算仍从左向右
 
-// #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wparentheses"
 #pragma GCC diagnostic ignored "-Wunused-value"
 #include <stdio.h>
@@ -31,4 +30,3 @@ int main(void) {
     PRINT3(x, y, z);
     // x=0 y=0 z=-1
 }
-// #pragma GCC diagnostic pop

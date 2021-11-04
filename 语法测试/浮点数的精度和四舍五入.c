@@ -1,5 +1,5 @@
 // http://tieba.baidu.com/p/5442657055
-// https://web.archive.org/web/20181014185024/http://www.rationmcu.com/clang/2416.html
+// https://rationmcu.com/clang/2416.html
 // http://bbs.csdn.net/topics/70084538/
 // http://bbs.csdn.net/topics/390321157
 
@@ -20,6 +20,7 @@ int main(void) {
     // 0.56 1.55 2.56 3.56 4.55 5.55 6.55
     // 有的会”四舍五入“，有的不会
 
+    // “加0.5”的方法
     printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
            a1 + 0.005, a2 + 0.005, a3 + 0.005, a4 + 0.005, a5 + 0.005, a6 + 0.005, a7 + 0.005);
     // 0.56 1.56 2.56 3.56 4.56 5.56 6.56
@@ -36,7 +37,7 @@ int main(void) {
            a1 + 0.005, a2 + 0.005, a3 + 0.005, a4 + 0.005, a5 + 0.005, a6 + 0.005, a7 + 0.005);
     // 0.56 1.56 2.56 3.56 4.56 5.56 6.56
     // 本来此时不应该四舍五入的
-    // 总之结论是不要直接依靠printf的精度来四舍五入
+    // 总之结论是不要直接依靠printf的精度来四舍五入。也许加0.5对于四舍五入到整数是可用的
 
     // 解决办法：
     double Round(double num, unsigned digit);
