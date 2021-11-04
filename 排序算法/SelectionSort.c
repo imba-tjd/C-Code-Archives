@@ -22,7 +22,7 @@ void selection_sort2(int arr[], int n) {
                 t = arr[i], arr[i] = arr[j], arr[j] = t;
 }
 
-int main() {
+int main(void) {
     int arr[10] = {4, 28, 19, 8, 22, 14, 27, 25, 7, 11};
     selection_sort(arr, 10);
     for (int i = 0; i < 10; i++)
