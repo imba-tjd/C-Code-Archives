@@ -1,24 +1,24 @@
 #include <assert.h>
 #include <stdio.h>
 
-// 返回索引，理论上应该用ssize_t
-int binary_search(const int arr[], size_t from, size_t to, int target) {
-    // if (to - from == 1) // 不要这样做，可能直接变到0
-    //     return arr[from] == target ? from : -1;
-    if (to - from == 0)  // 根据LC测试不会<0
+// 返回索引，闭区间
+int binary_search(const int arr[], int from, int to, int target) {
+    if (to - from < 0)
         return -1;
+    else if (to - from == 0)  // 剩一个数
+        return arr[from] == target ? from : -1;
 
-    size_t mid = from + (to - from) / 2;
+    int mid = from + (to - from) / 2;
 
     if (arr[mid] == target)
         return mid;
     else if (arr[mid] > target)
-        return binary_search(arr, from, mid, target);
+        return binary_search(arr, from, mid - 1, target);  // 可能导致to<0
     else
         return binary_search(arr, mid + 1, to, target);
 }
 
-// 返回指针。参数数组加了const，返回的指针也必须加；若是C++可用const_cast重载非const版
+// 返回指针。参数的数组加了const，返回的指针也必须加
 const int *binary_search2(const int arr[], int len, int target) {
     if (len == 0)
         return NULL;
@@ -46,6 +46,8 @@ int binary_search3(const int arr[], int len, int target) {
     }
     return -1;
 }
+
+// 测试用代码
 
 int binary_search_wrapper(const int arr[], int len, int target) {
     return binary_search(arr, 0, len, target);

@@ -1,6 +1,6 @@
 // 每轮排好最后一个数字
 // 如果在某一次排序过程中发现没有要交换的，则说明排序已经完成了。可在if中设置flag=true，外层每轮开始时设为false，结束本轮后仍是false就结束
-// 另一种算法：双向冒泡。设置low和high，内层有两个循环，一个从low到high，一个从high到low
+// 另一种算法：双向冒泡。设置low和high，内层有两个循环，一个从low到high，一个从high到low。对前面已经从小到大排好但尾部没排好的效率更高
 #include <stdio.h>
 
 void bubble_sort(int arr[], int n) {

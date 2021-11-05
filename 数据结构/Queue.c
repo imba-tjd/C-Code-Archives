@@ -26,7 +26,7 @@ void Queue_enqueue(Queue* q, DataType value) {
         assert(0);
 
     q->data[q->tail++] = value;
-    q->tail %= q->len;  // 这样两句都改变了tail，可读性不如tail=(tail+1)%len
+    q->tail %= q->len;  // 这样两句都改变了tail。另一种选择是上一句不用++，这一句写tail=(tail+1)%len
 }
 
 DataType Queue_dequeue(Queue* queue) {
