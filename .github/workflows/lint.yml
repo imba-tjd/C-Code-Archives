@@ -10,6 +10,6 @@ jobs:
     - run: |
         clang -fsyntax-only -Wall -Werror -std=gnu2x *.c **/*.c;
         clang -c --analyze -fsanitize=undefined -Werror -std=gnu2x *.c **/*.c;
+        # 运行时才生效的debug手段
         # gcc -fsanitize=undefined,address,leak,pointer-compare,pointer-subtract *.c **/*.c;
         # clang没有pointer-compare,pointer-subtract，但有memory；gcc的undefined是runtime的
-        # 未来可用gcc编译运行排序算法和数据结构，因为那些有测试用例且不会从用户处读取

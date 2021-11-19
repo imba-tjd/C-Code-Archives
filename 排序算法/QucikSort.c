@@ -60,7 +60,7 @@ void QuickSort3(int array[], int left, int right) {
 }
 
 // ----------------------------------
-// 算法导论的算法。快慢指针从左开始，[0,slow)是小于枢轴的部分，[slow,fast)是大于枢轴的部分
+// 算法导论的算法。快慢指针从左开始，[0,slow)是小于等于枢轴的部分，[slow,fast)是大于枢轴的部分
 // fast是当前评估的位置，如果大于枢轴就继续往右走；如果小于，则于slow交换
 void QuickSort4(int array[], int len) {
     if (len <= 1)
@@ -68,11 +68,10 @@ void QuickSort4(int array[], int len) {
 
     int pivot = array[len - 1];
     int slow = 0;
+    int t;
     for (int fast = 0; fast < len; fast++)
-        if (array[fast] <= pivot) {  // pivot算作左边的部分
-            int t = array[fast];
-            array[fast] = array[slow];
-            array[slow] = t;
+        if (array[fast] <= pivot) {
+            t = array[fast], array[fast] = array[slow], array[slow] = t;
             slow++;
         }
 
