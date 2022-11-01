@@ -15,9 +15,10 @@ void calc_primes(int primes[], int n) {
 }
 
 int main(void) {
-    int arr[100];
-    calc_primes(arr, 100);
+    const int n = 100;
+    int arr[n];
+    calc_primes(arr, n);
 
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < n; i++)
         printf("%d ", arr[i]);
 }
