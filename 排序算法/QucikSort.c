@@ -69,10 +69,10 @@ void QuickSort4(int array[], int len) {
 
     int pivot = array[len - 1];
     int slow = 0;
-    int t;
     for (int fast = 0; fast < len; fast++)
         if (array[fast] <= pivot) {
-            t = array[fast], array[fast] = array[slow], array[slow] = t;
+            int t = array[fast];
+            array[fast] = array[slow], array[slow] = t;
             slow++;
         }
 
@@ -96,7 +96,7 @@ void Test(void (*fun)(int arr[], int len)) {
     print_arr(arr, len);
 }
 
-// 模拟闭包
+// 模拟装饰器
 static void (*FUN)(int[], int, int);
 typedef void (*qs1funptr)(int[], int, int);
 typedef void (*qs4funptr)(int[], int);
@@ -105,7 +105,7 @@ void wrapper(int arr[], int len) {
     FUN(arr, 0, len - 1);
 }
 
-// 柯里化，接收一个三个参数的函数指针，返回一个两个参数的函数指针
+// 接收一个三个参数的函数指针，返回一个两个参数的函数指针
 // void (*fun_wrapper(void (*fun)(int[], int, int)))(int[], int)
 qs4funptr fun_wrapper(qs1funptr fun){
     FUN = fun;

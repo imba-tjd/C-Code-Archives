@@ -1,19 +1,19 @@
 #include <stdio.h>
 
 void selection_sort(int arr[], int n) {
-    int t;
     for (int i = 0; i < n - 1; i++) {  // 待修改索引
         int minndx = i;
-        for (int j = i + 1; j < n; j++)  // 从后面找一个数
+        for (int j = i + 1; j < n; j++)  // 在后面找最小的数的索引
             if (arr[j] < arr[minndx])
                 minndx = j;
+        int t;
         if (minndx != i)
             t = arr[minndx], arr[minndx] = arr[i], arr[i] = t;
     }
 }
 
-// 劣化版：每次都交换一下。
-// 正常版的是每次记录下标，最后才交换一次。比较O(n^2)，移动O(n)
+// 劣化版：每次都交换一下，也能保证一轮过后arr[i]是后面之中最小的
+// 正常版是每次记录最小数下标，最后才交换一次。比较O(n^2)，移动O(n)
 void selection_sort2(int arr[], int n) {
     int t;
     for (int i = 0; i < n - 1; i++)

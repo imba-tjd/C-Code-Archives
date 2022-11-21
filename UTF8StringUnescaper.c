@@ -1,4 +1,4 @@
-// 此程序可以将输入的UTF8文本解转义，例如如果手动输入 1\n2 这四个字符，可以输出 1(换行)2
+// 此程序可以将输入的UTF8文本解转义，例如手动输入 1\n2 这四个字符，可以输出 1(换行)2
 /* 测试用例：
 hello, world\n
 \u0068\u0065\u006c\u006c\u006f\u002c\u0020\u0077\u006f\u0072\u006c\u0064\u000a
@@ -26,10 +26,10 @@ void EncodeUTF8(unsigned codePoint);
 
 int main(void) {
     char input[BUFSIZ];
-    printf("￥>");
+    printf("$>");
     while (fgets(input, BUFSIZ, stdin) != NULL) { // 读到EOF时返回NULL
         Parse(input);
-        printf("\n￥>");
+        printf("\n$>");
     }
 }
 

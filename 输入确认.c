@@ -35,8 +35,7 @@ int main(void) {
 
 int get_int(void) {
     int input;
-    while (scanf("%d", &input) != 1)
-    {
+    while (scanf("%d", &input) != 1) {
         char ch;
         while ((ch = getchar()) != '\n') // 剔除错误的输入
             putchar(ch);

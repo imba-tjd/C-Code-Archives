@@ -30,7 +30,6 @@ void merge_sort(int arr[], int len) {
     }
 
     if (a != arr) {  // 即b为arr
-
         for (int i = 0; i < len; i++)
             b[i] = a[i];
         b = a;

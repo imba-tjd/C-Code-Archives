@@ -6,7 +6,7 @@
 void insert(int tree[], int len, int value) {
     // 不能改成for在结尾时统一乘以二，因为i++后乘以二就是2i+2了。
     int i = 1;
-    while (tree[i] != 0) {  // 把0看作NULL
+    while (tree[i] != 0) {  // 把0看作无数据
         if (i >= len)
             assert(0);
         else if (tree[i] == value)

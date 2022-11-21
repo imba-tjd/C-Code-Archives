@@ -3,7 +3,7 @@
 #include <string.h>  // memcpy
 #include <time.h>    // time
 
-void Swap(int *a, int *b) {
+static inline void Swap(int *a, int *b) {
     int t = *a;
     *a = *b;
     *b = t;

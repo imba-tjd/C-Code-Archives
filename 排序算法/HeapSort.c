@@ -1,6 +1,6 @@
 // 升序排序（大顶堆）：void heap_sort(int a[], int n)
 // 当一个结点比父结点大或者新出现时，需要从下往上处理（上浮swim）；反之如果父结点比子结点更小，需要从上往下处理（下沉sink）
-// 对数组初建堆可以只用下沉且比一个个添加少一半要处理的，之后堆排序也只会用到下沉
+// 对数组初建堆可以只用下沉且这这样比一个个添加少一半要处理的，之后堆排序也只会用到下沉
 
 #include <stdio.h>
 
@@ -12,9 +12,9 @@ void heap_sort(int array[], int len) {  // len为堆的界限且array[len]存在
         heap_adjust(array, len, i);
 
     // 反复把堆顶元素放到最后
-    int t;
     while (len != 1) {
-        t = array[1], array[1] = array[len], array[len] = t;
+        int t = array[1];
+        array[1] = array[len], array[len] = t;
         heap_adjust(array, --len, 1);  // 保持堆顶最大
     }
 }
@@ -41,7 +41,7 @@ void heap_adjust2(int array[], int len, int index) {
     int t = array[index];
     for (int i = 2 * index; i <= len; i *= 2) {
         // 每次评估左子树
-        if (i < len && array[i] < array[i + 1])
+        if (i + 1 <= len && array[i] < array[i + 1])
             i++;  // 右子树更大就换到右边
         if (t >= array[i])
             break;  // 比左右都大，找到位置
@@ -52,7 +52,7 @@ void heap_adjust2(int array[], int len, int index) {
 }
 
 int main(void) {
-// 不使用array[0]
+// 不使用array[0]，范围为[1,LEN]
 #define LEN 10
     int array[LEN + 1] = {0, 76, 32, 71, 52, 65, 69, 2, 27, 30, 67};
 
