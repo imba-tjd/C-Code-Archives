@@ -31,9 +31,9 @@ void QuickSort1(int A[], int low, int high) {
 }
 
 // ----------------------------------
-// wiki上的C#算法，闭区间
+// wiki上的C#算法，Hoare’s partition scheme。闭区间
 // 不把枢轴单独拿出来，而是和其他数一起排列
-// 左边找一个大的，右边找一个小的，交换，但如果左边找到了，右边没找到怎么办？
+// 左边找一个大的，右边找一个小的，二者交换，但如果左边找到了，右边没找到怎么办？
 // 还有不要试图交换后left++;right++，有可能交错导致状态变得超级复杂
 // 总之看不懂太原理，试图把那个单独的分号改掉，失败，过不了有重复数据的测试
 void QuickSort3(int array[], int left, int right) {
@@ -61,7 +61,8 @@ void QuickSort3(int array[], int left, int right) {
 }
 
 // ----------------------------------
-// 算法导论的算法。快慢指针从左开始，[0,slow)是小于等于枢轴的部分，[slow,fast)是大于枢轴的部分
+// 算法导论的算法，Lomuto's partition scheme
+// 快慢指针从左开始，[0,slow)是小于等于枢轴的部分，[slow,fast)是大于枢轴的部分
 // fast是当前评估的位置，如果大于枢轴就继续往右走；如果小于，则于slow交换
 void QuickSort4(int array[], int len) {
     if (len <= 1)

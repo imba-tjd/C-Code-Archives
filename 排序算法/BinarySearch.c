@@ -1,7 +1,8 @@
+// 本文件三种方法在存在重复值时都不会选择最左边那个
 #include <assert.h>
 #include <stdio.h>
 
-// 返回索引，闭区间
+// 返回索引，闭区间。教材上是这种模式，计算比较次数时注意剩一个数时也要比一次
 int binary_search(const int arr[], int from, int to, int target) {
     if (to - from < 0)
         return -1;
