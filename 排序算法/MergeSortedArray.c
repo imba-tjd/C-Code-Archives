@@ -44,6 +44,24 @@ void merge_sorted_array_by_pointer(const int arr1[], const int *end1,
         *arrout++ = *rest++;
 }
 
+// 专用于归并排序的合并
+void merge_in_mergesort(int arr[], int l, int mid, int r) {
+    int tmp[r-l]; // 一般在外面开辟长度等于原数组的临时数组，而不是每次新建。如果每次新建，可将后半部分复制出来，从后往前合并每次取最大的，平均省一半空间
+    int i = l, j = mid, k = 0;
+
+    while (i < mid && j < r)
+        if (arr[i] < arr[j])
+            tmp[k++] = arr[i++];
+        else
+            tmp[k++] = arr[j++];
+    while (i < mid)
+        tmp[k++] = arr[i++];
+    while (j < r)
+        tmp[k++] = arr[j++];
+    for (k = 0, i = l; i < r; ++i, ++k)
+        arr[i] = tmp[k];
+}
+
 // --------------------------
 // 用于第一个数不有序，后面的都有序；思路来自于插入排序
 void insert_once(int arr[], int *end) {

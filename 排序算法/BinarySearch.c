@@ -71,6 +71,12 @@ void Test(int (*fun)(const int[], int, int)) {
     assert(-1 == fun(arr2, 2, 5));
     assert(1 == fun(arr2, 2, 7));
     assert(-1 == fun(arr2, 2, 9));
+
+    int arr3[] = {5};
+    assert(-1 == fun(arr3, 1, 4));
+    assert(0 == fun(arr3, 1, 5));
+
+    assert(-1 == fun((int[]){}, 0, 0));
 }
 
 int main(void) {
