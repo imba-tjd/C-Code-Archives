@@ -6,8 +6,8 @@
 typedef int DataType;
 
 typedef struct Queue {
-    int tail;  // 队列的尾，在数组中处于“前面”
-    int head;  // 队列的头，在数组中处于“后面”
+    int tail;  // 队列的尾，索引号“大”
+    int head;  // 队列的头，索引号“小”
     int len;   // 允许的最大元素数量再加1
     DataType data[];
 } Queue;
